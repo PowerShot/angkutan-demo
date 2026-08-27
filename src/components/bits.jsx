@@ -1,6 +1,6 @@
 import Icon from './Icon.jsx'
 import { useT } from '../i18n/index.jsx'
-import { rp, initials } from '../lib/format.js'
+import { rp, initials, waNumber, telNumber } from '../lib/format.js'
 import { metaOf } from '../lib/status.js'
 
 /* -- pastille de statut ---------------------------------------------------
@@ -250,5 +250,49 @@ export function NavButtons({ address, lat, lon, compact = false }) {
       <Icon n="pin" className={compact ? 'w-[14px] h-[14px]' : 'w-[17px] h-[17px]'} />
       {t('common.maps')}
     </a>
+  )
+}
+
+/* =========================================================================
+   JOINDRE UN CONTACT
+   Un numéro affiché sans moyen de l'appeler oblige à le recopier. Deux
+   actions distinctes : WhatsApp, qui est le canal réel du métier, et
+   l'appel classique pour ceux qui ne répondent pas en message.
+   wa.me ouvre la conversation — c'est le seul lien universel ; l'appel
+   vocal WhatsApp se déclenche ensuite depuis la conversation.
+   Aucun logo de marque n'est reproduit.
+   ========================================================================= */
+export function ContactButtons({ phone, message, compact = false }) {
+  const { t } = useT()
+  if (!phone) return null
+  const wa = `https://wa.me/${waNumber(phone)}${message ? `?text=${encodeURIComponent(message)}` : ''}`
+  const tel = `tel:${telNumber(phone)}`
+
+  if (compact) {
+    return (
+      <div className="flex gap-2">
+        <a href={wa} target="_blank" rel="noopener noreferrer"
+           className="inline-flex items-center gap-1.5 rounded-[9px] px-2.5 py-1.5 text-[11.5px] font-bold no-underline text-white"
+           style={{ background: 'var(--color-wa)' }}>
+          <Icon n="chat" className="w-[14px] h-[14px]" />{t('common.whatsapp')}
+        </a>
+        <a href={tel}
+           className="inline-flex items-center gap-1.5 rounded-[9px] px-2.5 py-1.5 text-[11.5px] font-bold no-underline"
+           style={{ color: 'var(--color-pri)', boxShadow: 'inset 0 0 0 1.5px var(--color-line)' }}>
+          <Icon n="phone" className="w-[14px] h-[14px]" />{t('common.call')}
+        </a>
+      </div>
+    )
+  }
+
+  return (
+    <div className="grid grid-cols-[1fr_auto] gap-2.5">
+      <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-wa">
+        <Icon n="chat" />{t('common.whatsapp')}
+      </a>
+      <a href={tel} className="btn btn-ghost !w-auto px-5" aria-label={t('common.call')}>
+        <Icon n="phone" />
+      </a>
+    </div>
   )
 }

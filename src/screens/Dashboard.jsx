@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Seg, Pill, Banner, Btn, SectionTitle } from '../components/bits.jsx'
+import { Seg, Pill, Banner, SectionTitle } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
-import { rp, dateShort, dateDay, daysBetween } from '../lib/format.js'
+import { rp, dateShort, dateDay, daysBetween, waNumber } from '../lib/format.js'
 import { NOW, costs, trucks } from '../data/demoData.js'
 
 export default function Dashboard() {
@@ -235,7 +235,14 @@ function InvoiceTab() {
 
                 {late && (
                   <div className="mt-2.5">
-                    <Btn variant="btn-wa btn-sm" icon="chat">{t('dash.remind')}</Btn>
+                    {/* Le message porte le numéro de facture, le montant et
+                        l'échéance : rien à retaper. */}
+                    <a className="btn btn-wa btn-sm" target="_blank" rel="noopener noreferrer"
+                       href={`https://wa.me/${waNumber(c.phone)}?text=${encodeURIComponent(
+                         t('dash.remindMsg', { id: inv.id, amount: rp(inv.amount),
+                                               due: dateShort(inv.due, dict) }))}`}>
+                      <Icon n="chat" />{t('dash.remind')}
+                    </a>
                   </div>
                 )}
               </div>

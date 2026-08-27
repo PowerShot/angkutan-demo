@@ -2,7 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusPill, Pill, Btn, Avatar, Row } from '../components/bits.jsx'
+import { StatusPill, Pill, Btn, Avatar, Row, ContactButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, dateShort, stamp } from '../lib/format.js'
 
@@ -43,8 +43,11 @@ export default function TripDetail() {
                   <span className="code">{leg.suratJalan}</span>
                 </span>
               ) : leg.booked && <Pill tone="pri">{t('trip.backhaulBooked')}</Pill>}
-              <span className="flex items-center gap-1.5">
-                <Icon n="user" className="w-[13px] h-[13px]" />{c.contact} · {c.phone}
+              <span className="flex items-center gap-2 flex-wrap">
+                <Icon n="user" className="w-[13px] h-[13px]" />
+                <span>{c.contact}</span>
+                <span className="flex-1" />
+                <ContactButtons phone={c.phone} compact />
               </span>
             </div>
           </>

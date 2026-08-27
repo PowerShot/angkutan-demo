@@ -1,7 +1,7 @@
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Pill, Btn, NavButtons } from '../components/bits.jsx'
+import { Pill, NavButtons, ContactButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp } from '../lib/format.js'
 import { customers } from '../data/demoData.js'
@@ -66,7 +66,8 @@ export default function Customers() {
                   <span className="subtle">{t('customer.trips', { n })}</span>
                 </div>
                 <div className="mt-2.5">
-                  <Btn variant="btn-wa btn-sm" icon="chat">{c.phone}</Btn>
+                  <div className="subtle mb-1.5 code">{c.phone}</div>
+                  <ContactButtons phone={c.phone} compact />
                 </div>
               </div>
             </Rise>

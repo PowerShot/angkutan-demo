@@ -75,6 +75,30 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Cinq boutons WhatsApp qui n'ouvraient rien
+
+Les boutons WhatsApp de la fiche chauffeur, des clients, de la flotte, du
+suivi et des factures étaient **purement décoratifs** : aucun `href`, aucun
+`onClick`. Un bouton qui ne fait rien coûte plus cher qu'un bouton absent.
+
+`ContactButtons` rend désormais deux actions : **WhatsApp** (`wa.me`) en
+principal, puisque c'est le canal réel du métier, et **l'appel classique**
+(`tel:`) en secondaire. Câblé sur cinq écrans.
+
+Deux actions contextuelles **pré-remplissent le message** :
+
+- demander une position au chauffeur → « Pak Sudarmanto, mohon kirim lokasi
+  sekarang. Terima kasih. » ;
+- relancer une facture → « Selamat pagi, kami ingin mengingatkan tagihan
+  INV/2026/07/019 sebesar Rp 22.000.000, jatuh tempo 10 Agu 2026… »
+
+Le numéro de facture, le montant et l'échéance viennent des données : rien
+n'est à retaper.
+
+`wa.me` ouvre la conversation, pas l'appel vocal — c'est le seul lien
+universel, et l'appel se déclenche ensuite depuis la conversation. Le libellé
+dit donc « WhatsApp », pas « Appel WhatsApp ».
+
 ## Une adresse sans moyen de la suivre
 
 Toutes les adresses étaient du texte : pour s'y rendre, le chauffeur devait

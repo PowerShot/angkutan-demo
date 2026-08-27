@@ -45,6 +45,14 @@ des défauts qu'il a fallu corriger.**
   quand elles existent. La destination proposée au chauffeur dépend de
   l'étape du trajet : entrepôt de départ, lieu de déchargement, puis adresse
   du fret retour.
+- **Un numéro affiché est suivi de quoi le joindre.** `ContactButtons` rend
+  WhatsApp (`wa.me`, canal réel du métier, en principal) et l'appel classique
+  (`tel:`, en secondaire). Les actions contextuelles — demander une position,
+  relancer une facture — **pré-remplissent le message** avec les vraies
+  données : numéro de facture, montant, échéance. Rien à retaper.
+- **Un bouton d'action doit agir.** Cinq boutons WhatsApp étaient purement
+  décoratifs : ils n'ouvraient rien. Un bouton qui ne fait rien coûte plus
+  cher qu'un bouton absent.
 - **Ce qui est cliquable doit se voir cliquable.** Fond plein, contour, ou
   chevron — jamais du texte centré en gris, qui se lit comme un intertitre.
   L'action secondaire prend un contour et une icône, plus petite que

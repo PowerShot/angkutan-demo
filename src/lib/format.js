@@ -101,3 +101,9 @@ export const ago = (from, to, lang) => {
 /** Initiales pour l'avatar de repli */
 export const initials = (name) =>
   name.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase()
+
+/* -- numéros de téléphone -------------------------------------------------
+   Les données stockent « +62 812-6754-3391 ». wa.me veut les chiffres seuls,
+   tel: veut l'indicatif international.                                     */
+export const waNumber = (phone) => String(phone).replace(/\D/g, '')
+export const telNumber = (phone) => '+' + String(phone).replace(/\D/g, '')

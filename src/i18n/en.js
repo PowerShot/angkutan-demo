@@ -92,7 +92,8 @@ export default {
            stale: 'Stale reading',
            lastUpdate: 'Updated', device: 'Device',
            noGps: 'This truck has no GPS tracker. The driver sends his location by WhatsApp at each checkpoint and an admin records it manually.',
-           askLocation: 'Ask {name} for location', reports: 'Location reports',
+           askLocation: 'Ask {name} for location',
+           askMsg: 'Hello {name}, please send your current location. Thank you.', reports: 'Location reports',
            recordManual: 'Record position manually', point: 'Checkpoint',
            time: 'Time', date: 'Date', savePos: 'Save Position',
            enteredBy: 'Recorded by', fromWa: 'via WhatsApp',
@@ -111,6 +112,7 @@ export default {
           deducted: 'Already deducted', notDeducted: 'Not deducted',
           opexNote: 'Truck rental, diesel, tolls and driver are already deducted from the margin above. The other lines are not.',
           issued: 'Issued', remind: 'Remind via WhatsApp',
+          remindMsg: 'Good morning, this is a reminder for invoice {id} of {amount}, due {due}. Please confirm. Thank you.',
           alertOverdue: '{n} invoice past due' },
 
   fleet: { title: 'Fleet', rentedFrom: 'Rented from', perMonth: 'per month',
@@ -138,7 +140,8 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { change: 'Change', maps: 'Open in Maps', destination: 'Destination', back: 'Back', close: 'Close', all: 'All', search: 'Search',
+  common: { change: 'Change', maps: 'Open in Maps', destination: 'Destination',
+            whatsapp: 'WhatsApp', call: 'Call', back: 'Back', close: 'Close', all: 'All', search: 'Search',
             today: 'Today', yesterday: 'Yesterday', more: 'More',
             seeAll: 'See all', open: 'Open', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Yes', no: 'No', of: 'of' },

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusBadge, StatusPill, Btn, Sheet, Pill, Row, NavButtons } from '../components/bits.jsx'
+import { StatusBadge, StatusPill, Btn, Sheet, Pill, Row, NavButtons, ContactButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, timeWib } from '../lib/format.js'
 import { metaOf } from '../lib/status.js'
@@ -121,8 +121,11 @@ export default function DriverTask() {
                  style={{ borderColor: 'var(--color-line-2)', color: 'var(--color-mut)' }}>
               <Icon n="doc" className="w-[13px] h-[13px]" />
               <span className="code">{trip.outbound.suratJalan}</span>
+            </div>
+            <div className="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span className="text-[12px] font-semibold">{out.contact}</span>
               <span className="flex-1" />
-              <span>{out.contact}</span>
+              <ContactButtons phone={out.phone} compact />
             </div>
           </div>
         </Rise>

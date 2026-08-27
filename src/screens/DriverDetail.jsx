@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Avatar, Pill, Btn, SectionTitle } from '../components/bits.jsx'
+import { Avatar, Pill, SectionTitle, ContactButtons } from '../components/bits.jsx'
 import KtpCard from '../components/KtpCard.jsx'
 import Icon from '../components/Icon.jsx'
 import { dateShort, daysBetween, dateDay } from '../lib/format.js'
@@ -38,7 +38,7 @@ export default function DriverDetail() {
         </Rise>
 
         <Rise i={1}>
-          <Btn variant="btn-wa" icon="chat">{t('driver.chat')}</Btn>
+          <ContactButtons phone={d.whatsapp} />
         </Rise>
 
         <Rise i={2}>

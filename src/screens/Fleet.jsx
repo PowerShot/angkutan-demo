@@ -1,6 +1,6 @@
 import { useT } from '../i18n/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Pill, Banner, Btn } from '../components/bits.jsx'
+import { Pill, Banner, ContactButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, dateShort, daysBetween } from '../lib/format.js'
 import { trucks, NOW } from '../data/demoData.js'
@@ -73,7 +73,8 @@ export default function Fleet() {
                     <span className="subtle">{t('fleet.perMonth')}</span>
                   </div>
                   <div className="mt-3">
-                    <Btn variant="btn-wa btn-sm" icon="chat">{tr.lessorPhone}</Btn>
+                    <div className="subtle mb-1.5 code">{tr.lessorPhone}</div>
+                    <ContactButtons phone={tr.lessorPhone} compact />
                   </div>
                 </div>
               </div>

@@ -91,7 +91,8 @@ export default {
            stale: 'Data lama',
            lastUpdate: 'Diperbarui', device: 'Perangkat',
            noGps: 'Truk ini tanpa GPS tracker. Sopir mengirim lokasi lewat WhatsApp di setiap titik, admin mencatat manual.',
-           askLocation: 'Minta lokasi ke {name}', reports: 'Laporan lokasi',
+           askLocation: 'Minta lokasi ke {name}',
+           askMsg: 'Pak {name}, mohon kirim lokasi sekarang. Terima kasih.', reports: 'Laporan lokasi',
            recordManual: 'Catat posisi manual', point: 'Titik',
            time: 'Waktu', date: 'Tanggal', savePos: 'Simpan Posisi',
            enteredBy: 'Dicatat oleh', fromWa: 'dari WhatsApp',
@@ -110,6 +111,7 @@ export default {
           deducted: 'Sudah dikurangi', notDeducted: 'Belum dikurangi',
           opexNote: 'Sewa truk, solar, tol dan sopir sudah dikurangi dari laba di atas. Pos lainnya belum.',
           issued: 'Terbit', remind: 'Ingatkan via WhatsApp',
+          remindMsg: 'Selamat pagi, kami ingin mengingatkan tagihan {id} sebesar {amount}, jatuh tempo {due}. Mohon konfirmasinya. Terima kasih.',
           alertOverdue: '{n} tagihan lewat jatuh tempo' },
 
   fleet: { title: 'Armada', rentedFrom: 'Disewa dari', perMonth: 'per bulan',
@@ -137,7 +139,8 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { change: 'Ganti', maps: 'Buka di Maps', destination: 'Tujuan', back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
+  common: { change: 'Ganti', maps: 'Buka di Maps', destination: 'Tujuan',
+            whatsapp: 'WhatsApp', call: 'Telepon', back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
             today: 'Hari ini', yesterday: 'Kemarin', more: 'Selengkapnya',
             seeAll: 'Lihat semua', open: 'Lihat', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Ya', no: 'Tidak', of: 'dari' },

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusPill, Track, Banner, SectionTitle, Row, Pill } from '../components/bits.jsx'
+import { StatusPill, Track, SectionTitle, Row, Pill } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, greetKey, stamp, dateDay, daysBetween } from '../lib/format.js'
 import { NOW, business, route } from '../data/demoData.js'
@@ -28,7 +28,6 @@ export default function Home() {
   const nav = useNavigate()
 
   const running = s.activeTrips()
-  const overdue = s.overdueInvoices()
   const monthName = dict.months[Number(NOW.slice(5, 7)) - 1]
 
   /* Le montant en tête ne mélange plus réalisé et prévisionnel : seuls les

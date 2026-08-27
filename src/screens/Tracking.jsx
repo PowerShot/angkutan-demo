@@ -5,7 +5,7 @@ import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet, NavButtons } from '../components/bits.jsx'
 import RouteMap from '../components/RouteMap.jsx'
 import Icon from '../components/Icon.jsx'
-import { timeWib, dateShort, ago, minutesBetween } from '../lib/format.js'
+import { timeWib, dateShort, ago, minutesBetween, waNumber } from '../lib/format.js'
 import { route, NOW, business } from '../data/demoData.js'
 
 export default function Tracking() {
@@ -225,10 +225,14 @@ function ManualMode({ t, dict, trip, driver, reports, doneIds }) {
         <Banner tone="warn" icon="alert" title={t('track.noGps')} />
       </Rise>
 
+      {/* Le message est déjà rédigé : l'admin n'a plus qu'à envoyer. */}
       <Rise i={1}>
-        <Btn variant="btn-wa" icon="chat">
+        <a className="btn btn-wa" target="_blank" rel="noopener noreferrer"
+           href={`https://wa.me/${waNumber(driver.whatsapp)}?text=${
+             encodeURIComponent(t('track.askMsg', { name: driver.name.split(' ')[0] }))}`}>
+          <Icon n="chat" />
           {t('track.askLocation', { name: driver.name.split(' ')[0] })}
-        </Btn>
+        </a>
       </Rise>
 
       <Rise i={2}>
