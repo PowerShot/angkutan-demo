@@ -71,6 +71,26 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Barre d'état simulée : retirée du téléphone
+
+Une fausse barre d'état — heure, réseau, batterie — était dessinée en haut de
+chaque écran. Sur un vrai téléphone elle en faisait **trois empilées** : la
+barre système d'Android, la barre d'URL du navigateur, puis la fausse. Le
+rendu trahissait la maquette au lieu de la crédibiliser.
+
+Elle appartient au **cadre de présentation**, pas à l'application. Elle est
+donc masquée sous 768 px, et conservée au-dessus, là où l'application est
+affichée dans une colonne centrée à largeur de téléphone où elle complète le
+cadrage.
+
+L'en-tête assume désormais lui-même l'encoche
+(`padding-top: max(env(safe-area-inset-top), 12px)`), et le `theme-color`
+`#0F4E5C` déjà posé teinte la barre du navigateur Android en pétrole : la
+continuité se fait avec la vraie barre système plutôt que contre elle.
+
+Au passage, le bouton de connexion n'est plus ancré en bas d'écran : sur un
+téléphone haut, l'ancrage creusait un vide de 250 px au milieu du formulaire.
+
 ## Bugs corrigés en cours de route
 
 - Les resets CSS (`button{padding:0}`) étaient **hors couche Tailwind** :

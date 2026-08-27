@@ -24,7 +24,8 @@ export default function Login() {
     <div className="flex flex-col min-h-0 flex-1" style={{ background: 'var(--color-surf)' }}>
       <div style={{ background: 'var(--color-pri)', color: '#EAF3F5' }}>
         <StatusBar />
-        <div className="flex items-start px-5 pt-3 pb-6">
+        <div className="flex items-start px-5 pb-6"
+             style={{ paddingTop: 'max(env(safe-area-inset-top), 14px)' }}>
           <div className="flex-1">
             <div className="text-[21px] font-extrabold tracking-[-.02em] leading-tight">
               {business.appName}
@@ -95,7 +96,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="rise mt-auto pt-2 flex flex-col gap-3" style={{ '--i': 3 }}>
+        <div className="rise pt-2 flex flex-col gap-3" style={{ '--i': 3 }}>
           <Btn onClick={go}>{t('login.submit')}</Btn>
           <p className="text-center subtle">{t('login.help')}</p>
         </div>

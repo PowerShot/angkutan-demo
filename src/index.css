@@ -126,9 +126,20 @@
 @layer components{
 
   /* -- chrome ---------------------------------------------------------- */
-  .sbar{@apply flex items-center justify-between px-4 pt-2 pb-0.5 text-[12.5px] font-bold tabular-nums;
-        letter-spacing:.01em}
+  /* Barre d'état simulée : masquée sur téléphone, où la vraie barre système
+     et la barre d'URL du navigateur sont déjà présentes. Elle ne sert que
+     sur écran large, où l'application est affichée dans un cadre de
+     téléphone centré et où elle complète le cadrage. */
+  .sbar{display:none}
+  @media (min-width:768px){
+    .sbar{@apply flex items-center justify-between px-4 pt-2 pb-0.5 text-[12.5px] font-bold tabular-nums;
+          letter-spacing:.01em}
+  }
   .topbar{@apply flex items-center gap-2.5 px-3.5 pt-1.5 pb-3}
+  /* Sans barre simulée, l'en-tête respecte l'encoche lui-même.
+     Écrit APRÈS la règle ci-dessus, sinon @apply pt-1.5 l'emporte. */
+  .topbar{padding-top:max(env(safe-area-inset-top),12px)}
+  @media (min-width:768px){ .topbar{padding-top:6px} }
   .topbar h1{@apply text-[17px] font-bold tracking-[-.015em] flex-1 min-w-0 truncate}
   .iconbtn{@apply w-9 h-9 grid place-items-center rounded-[10px] shrink-0 transition-colors}
   .iconbtn:active{background:rgb(255 255 255 / .16)}
