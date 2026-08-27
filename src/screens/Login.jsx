@@ -5,7 +5,7 @@ import { useStore } from '../store/index.jsx'
 import { StatusBar, LangPill } from '../components/Chrome.jsx'
 import { Btn, Field } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
-import { business } from '../data/demoData.js'
+import { business, route } from '../data/demoData.js'
 
 /* Connexion factice : tout est pré-rempli, un seul appui suffit.
    C'est aussi l'endroit où se choisit le rôle. */
@@ -32,7 +32,7 @@ export default function Login() {
             </div>
             <div className="text-[12.5px] mt-0.5 flex items-center gap-1.5" style={{ color: '#9CC3CE' }}>
               <Icon n="truck" className="w-[14px] h-[14px]" />
-              Pekanbaru — Medan
+              {route.from} — {route.to}
             </div>
           </div>
           <LangPill />

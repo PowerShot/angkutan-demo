@@ -30,7 +30,7 @@ Le formatage indonésien — `Rp 13.000.000`, `26 Agustus 2026`, `21.40 WIB`,
 | `trucks` | plaque, carrosserie, échéances STNK et KIR, loueur, loyer mensuel |
 | `drivers` | nom, âge, WhatsApp, NIK, SIM, adresse KTP, statut, photo |
 | `customers` | raison sociale, contact, adresses de chargement et de déchargement, tarif, délai de paiement |
-| `route` | les 7 points de passage avec coordonnées réelles, et `shape` pour le tracé sur la carte |
+| `route` | `from` et `to` (les deux villes affichées dans l'interface), les 7 points de passage avec coordonnées réelles et leur `short` pour les libellés courts, et `shape` pour le tracé sur la carte |
 | `tariffs` | tarif aller, tarif fret retour, pourcentage d'acompte |
 | `costs` | coûts par aller-retour et récapitulatif mensuel |
 | `tripCostBreakdown` | les 4 postes du calcul de rentabilité du tableau de bord |

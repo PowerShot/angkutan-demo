@@ -183,18 +183,20 @@ export const customers = [
 
 /* -- Itinéraire ---------------------------------------------------------- */
 export const route = {
+  from: 'Pekanbaru',            // extrémités affichées dans l'interface
+  to: 'Medan',
   distanceKm: 750,
   hoursMin: 14,
   hoursMax: 16,
   // km : distances cumulées depuis l'entrepôt de Pekanbaru (approximatives)
   waypoints: [
-    { id: 'W1', name: 'Gudang Pekanbaru',      lat: 0.5071, lon: 101.4478, km: 0,   note: 'muat' },
-    { id: 'W2', name: 'GT Pekanbaru',          lat: 0.6435, lon: 101.4470, km: 18,  note: 'masuk Tol Permai' },
-    { id: 'W3', name: 'Duri',                  lat: 1.2596, lon: 101.2131, km: 128, note: 'keluar tol, Lintas Sumatra' },
-    { id: 'W4', name: 'Rantauprapat',          lat: 2.1008, lon: 99.8288,  km: 412, note: 'masuk Sumatra Utara' },
-    { id: 'W5', name: 'Kisaran',               lat: 2.9832, lon: 99.6279,  km: 545, note: 'masuk tol arah Medan' },
-    { id: 'W6', name: 'Tebing Tinggi',         lat: 3.3273, lon: 99.1618,  km: 620, note: '' },
-    { id: 'W7', name: 'Kawasan Industri Medan',lat: 3.6721, lon: 98.6820,  km: 750, note: 'bongkar' },
+    { id: 'W1', name: 'Gudang Pekanbaru', short: 'Pekanbaru', lat: 0.5071, lon: 101.4478, km: 0,   note: 'muat' },
+    { id: 'W2', name: 'GT Pekanbaru', short: 'GT PKU', lat: 0.6435, lon: 101.4470, km: 18,  note: 'masuk Tol Permai' },
+    { id: 'W3', name: 'Duri', short: 'Duri', lat: 1.2596, lon: 101.2131, km: 128, note: 'keluar tol, Lintas Sumatra' },
+    { id: 'W4', name: 'Rantauprapat', short: 'Rantau', lat: 2.1008, lon: 99.8288,  km: 412, note: 'masuk Sumatra Utara' },
+    { id: 'W5', name: 'Kisaran', short: 'Kisaran', lat: 2.9832, lon: 99.6279,  km: 545, note: 'masuk tol arah Medan' },
+    { id: 'W6', name: 'Tebing Tinggi', short: 'Tebing', lat: 3.3273, lon: 99.1618,  km: 620, note: '' },
+    { id: 'W7', name: 'Kawasan Industri Medan', short: 'Medan', lat: 3.6721, lon: 98.6820,  km: 750, note: 'bongkar' },
   ],
   // points intermédiaires suivant l'axe réel, pour le tracé sur la carte
   shape: [

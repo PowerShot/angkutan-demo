@@ -204,7 +204,9 @@ function GpsMode({ t, lang, truck, tm, doneIds }) {
             </div>
             <div className="flex justify-between mt-2 text-[10px] font-bold"
                  style={{ color: 'var(--color-mut-2)' }}>
-              <span>Pekanbaru</span><span>Duri</span><span>Kisaran</span><span>Medan</span>
+              {[0, 2, 4, 6].map((i) => (
+                <span key={i}>{route.waypoints[i].short}</span>
+              ))}
             </div>
           </div>
         </Rise>

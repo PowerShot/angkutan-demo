@@ -75,6 +75,27 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Les noms de villes étaient écrits en dur
+
+« Pekanbaru — Medan » apparaît sous le nom de l'application sur **l'écran de
+connexion**. Le cahier des charges interdisant d'inventer une identité de
+marque, le nom retenu est purement fonctionnel — « Manajemen Angkutan »,
+gestion de transport — et ne dit rien de l'activité concernée. L'itinéraire
+était la façon la plus courte de préciser de quelle exploitation il s'agit.
+
+En le vérifiant, un défaut plus large est apparu : **six noms de villes
+écrits en dur** dans quatre fichiers — l'écran de connexion, les extrémités
+de la barre d'avancement de l'accueil, la frise du suivi et les étiquettes de
+la carte — alors que la règle est que tout se change depuis `demoData.js`.
+Une clé `app.tagline` prévue pour ça dormait dans les deux fichiers de
+traduction sans être utilisée.
+
+`route` porte désormais `from`, `to`, et un `short` par point de passage. Les
+six occurrences en dur ont disparu, la clé inutilisée aussi.
+
+Vérifié en remplaçant temporairement l'itinéraire par « Padang → Jambi » :
+l'écran de connexion, l'accueil et la frise du suivi ont tous suivi.
+
 ## Impossible de se déconnecter, donc impossible de changer de rôle
 
 L'action `signOut` existait dans l'état depuis le début et **n'était câblée à

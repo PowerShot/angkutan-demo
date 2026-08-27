@@ -155,11 +155,11 @@ function RunningCard({ s, dict, trip }) {
             <Track pct={pct} />
             <div className="flex justify-between mt-1.5 text-[10.5px] font-bold"
                  style={{ color: 'var(--color-mut-2)' }}>
-              <span>Pekanbaru</span>
+              <span>{route.from}</span>
               <span className="tabular-nums" style={{ color: 'var(--color-pri)' }}>
                 {tm.odometerKm} / {route.distanceKm} km
               </span>
-              <span>Medan</span>
+              <span>{route.to}</span>
             </div>
           </div>
         </>

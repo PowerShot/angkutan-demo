@@ -135,9 +135,9 @@ export default function RouteMap({ telemetry, doneWaypointIds = [], height = 300
         ))}
 
         <Marker position={[route.waypoints[0].lat, route.waypoints[0].lon]}
-                icon={labelIcon('Pekanbaru', -14)} />
+                icon={labelIcon(route.waypoints[0].short, -14)} />
         <Marker position={[route.waypoints[6].lat, route.waypoints[6].lon]}
-                icon={labelIcon('Medan', 20)} />
+                icon={labelIcon(route.waypoints[6].short, 20)} />
 
         {showTruck && telemetry && (
           <Marker position={[telemetry.lat, telemetry.lon]} icon={truckIcon} zIndexOffset={500} />

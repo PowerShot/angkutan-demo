@@ -3,7 +3,7 @@
    Termes réels du métier, pas une traduction littérale de l'anglais.
    ========================================================================= */
 export default {
-  app: { name: 'Manajemen Angkutan', tagline: 'Pekanbaru — Medan' },
+  app: { name: 'Manajemen Angkutan' },
 
   nav: { home: 'Beranda', trips: 'Perjalanan', tracking: 'Pelacakan', data: 'Data',
          task: 'Tugas', costs: 'Biaya', location: 'Lokasi' },

@@ -4,7 +4,7 @@
    (surat jalan, uang jalan, muatan balik, KTP, STNK, KIR, SIM).
    ========================================================================= */
 export default {
-  app: { name: 'Haulage Manager', tagline: 'Pekanbaru — Medan' },
+  app: { name: 'Haulage Manager' },
 
   nav: { home: 'Home', trips: 'Trips', tracking: 'Tracking', data: 'Data',
          task: 'My job', costs: 'Costs', location: 'Location' },
