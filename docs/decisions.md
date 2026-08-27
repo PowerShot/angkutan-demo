@@ -71,6 +71,22 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## L'état de l'exploitation, d'un coup d'œil
+
+L'accueil répondait à « combien j'ai gagné » mais pas à « est-ce que tout
+tourne, et qu'est-ce que j'oublie ». Les compteurs étaient chuchotés en petit
+sous le montant, et **l'état de la flotte n'apparaissait nulle part** — il
+fallait aller dans Data → Armada. Le KIR du second camion expirait dans
+24 jours sans que rien ne le signale.
+
+| Décision | Raison |
+|---|---|
+| Bloc **Status operasional** de quatre lignes : armada, sopir, documents, tagihan | Répond en une lecture aux quatre questions qu'un propriétaire se pose en ouvrant l'application. Chaque ligne mène à son écran. |
+| **Tri par urgence**, rouge d'abord puis ambre | Le KIR à 24 jours remonte en tête au lieu de dormir en quatrième position. Le tri est stable : en régime normal les lignes gardent leur place habituelle. |
+| Les lignes **nomment** ce qui pose problème | « BM 9317 UY · 19 Sep » plutôt que « 1 document » : c'est ce qui évite d'oublier un camion. Un camion sans trajet en cours serait nommé de la même façon. |
+| Compteurs de trajets **en pastilles** dans le bandeau | « 4 perjalanan · 2 sedang berjalan » était écrit en 12 px translucide sous le montant. Trois pastilles lisibles à la place. |
+| Relevé GPS de plus de deux heures marqué **« Data lama »** | Un relevé qui date n'est pas une information neutre. La ligne le dit au lieu de le murmurer en gris. |
+
 ## Statuts : couleur, icône, et un bouton qui dit ce qu'il fait
 
 Le changement de statut côté chauffeur n'était pas intuitif et un changement

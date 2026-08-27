@@ -1,10 +1,11 @@
+import { Fragment } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusPill, Track, Banner, SectionTitle } from '../components/bits.jsx'
+import { StatusPill, Track, Banner, SectionTitle, Row, Pill } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
-import { rp, greetKey, stamp, daysBetween } from '../lib/format.js'
+import { rp, greetKey, stamp, dateDay, daysBetween } from '../lib/format.js'
 import { NOW, business, route } from '../data/demoData.js'
 
 /* Grille de raccourcis : icône ET libellé, jamais l'icône seule.
@@ -50,8 +51,14 @@ export default function Home() {
           <div className="hero">
             <div className="k-on">{t('home.profit')} — {monthName} {NOW.slice(0, 4)}</div>
             <div className="amount text-[30px] mt-1.5">{rp(profit)}</div>
-            <div className="text-[12px] mt-1" style={{ color: '#9CC3CE' }}>
-              {t('home.tripsCount', { n: s.trips.length })} · {t('home.running', { n: running.length })}
+            <div className="flex flex-wrap gap-1.5 mt-2.5">
+              <span className="pill pill-on">{t('home.tripsCount', { n: s.trips.length })}</span>
+              <span className="pill pill-on">
+                <i className="bead bead-live" />{t('home.running', { n: running.length })}
+              </span>
+              <span className="pill pill-on">
+                {t('home.done', { n: s.trips.length - running.length })}
+              </span>
             </div>
             <div className="hero-sep" style={{ height: 1, background: 'rgb(255 255 255 / .16)',
                                                margin: '13px 0 10px' }} />
@@ -67,9 +74,16 @@ export default function Home() {
           </div>
         </Rise>
 
+        {/* -- état opérationnel : ce qui roule, ce qui dort, ce qui expire.
+               Placé avant l'alerte pour être lisible sans défiler. -- */}
+        <Rise i={2}>
+          <SectionTitle>{t('home.state')}</SectionTitle>
+          <div className="card-flush mt-2"><StateRows s={s} t={t} dict={dict} nav={nav} /></div>
+        </Rise>
+
         {/* -- alerte de retard de paiement -- */}
         {overdue.length > 0 && (
-          <Rise i={2}>
+          <Rise i={3}>
             <Banner
               tone="dang"
               title={t('dash.alertOverdue', { n: overdue.length })}
@@ -82,7 +96,7 @@ export default function Home() {
         )}
 
         {/* -- raccourcis -- */}
-        <Rise i={3}>
+        <Rise i={4}>
           <SectionTitle>{t('home.shortcuts')}</SectionTitle>
           <div className="grid grid-cols-4 gap-x-1.5 gap-y-3 mt-2.5">
             {MENU(running[0]?.id).map((m) => (
@@ -101,16 +115,16 @@ export default function Home() {
         </Rise>
 
         {/* -- trajet en cours -- */}
-        <Rise i={4}>
+        <Rise i={5}>
           <SectionTitle action={t('common.seeAll')} onAction={() => nav('/perjalanan')}>
             {t('home.current')}
           </SectionTitle>
         </Rise>
 
         {running.length ? running.map((trip, i) => (
-          <Rise i={5 + i} key={trip.id}><RunningCard s={s} dict={dict} trip={trip} /></Rise>
+          <Rise i={6 + i} key={trip.id}><RunningCard s={s} dict={dict} trip={trip} /></Rise>
         )) : (
-          <Rise i={5}><div className="card text-center sub py-6">{t('home.noTrip')}</div></Rise>
+          <Rise i={6}><div className="card text-center sub py-6">{t('home.noTrip')}</div></Rise>
         )}
       </Screen>
     </>
@@ -163,4 +177,89 @@ function RunningCard({ s, dict, trip }) {
       )}
     </Link>
   )
+}
+
+/* =========================================================================
+   ÉTAT OPÉRATIONNEL
+   Quatre lignes qui répondent d'un coup d'œil aux questions qu'un
+   propriétaire se pose en ouvrant l'application : est-ce que tout roule,
+   qui est disponible, qu'est-ce qui va expirer, qui me doit de l'argent.
+   Quand quelque chose dort ou approche de l'échéance, la ligne le nomme —
+   c'est ce qui évite d'oublier un camion.
+   ========================================================================= */
+function StateRows({ s, t, dict, nav }) {
+  const today = NOW.slice(0, 10)
+
+  // camions : ceux qui n'ont pas de trajet en cours sont nommés
+  const running = s.activeTrips()
+  const busyTrucks = new Set(running.map((r) => r.truckId))
+  const idleTrucks = s.D.trucks.filter((tk) => !busyTrucks.has(tk.id))
+  const fleetTone = idleTrucks.length ? 'warn' : 'ok'
+
+  // chauffeurs : un chauffeur libre n'est pas une alerte, c'est de la capacité
+  const busyDrivers = new Set(running.map((r) => r.driverId))
+  const freeDrivers = s.D.drivers.filter((d) => !busyDrivers.has(d.id))
+
+  // documents : la plus proche échéance, tous camions et tous papiers confondus
+  const docs = s.D.trucks.flatMap((tk) => [
+    { plate: tk.plate, kind: t('fleet.stnk'), date: tk.stnkExpiry, days: daysBetween(today, tk.stnkExpiry) },
+    { plate: tk.plate, kind: t('fleet.kir'), date: tk.kirExpiry, days: daysBetween(today, tk.kirExpiry) },
+  ]).sort((a, b) => a.days - b.days)
+  const soonest = docs[0]
+  const docTone = soonest.days < 0 ? 'dang' : soonest.days <= 30 ? 'dang'
+                : soonest.days <= 90 ? 'warn' : 'ok'
+
+  // factures
+  const open = s.openInvoices()
+  const late = s.overdueInvoices()
+
+  /* Ordre de lecture : rouge d'abord, puis ambre, puis le reste. Le tri est
+     stable, donc en régime normal les lignes gardent leur place habituelle. */
+  const SEV = { dang: 2, warn: 1, ok: 0, pri: 0, mut: 0 }
+  const rows = [
+    { key: 'fleet', tone: fleetTone, node: (
+      <Row icon="truck" title={t('menu.fleet')}
+           sub={idleTrucks.length
+             ? idleTrucks.map((tk) => tk.plate).join(' · ')
+             : t('home.allRolling')}
+           right={<Pill tone={fleetTone} dot={fleetTone !== 'ok'}>
+             {idleTrucks.length
+               ? t('home.idle', { n: idleTrucks.length })
+               : t('home.rolling', { a: running.length, b: s.D.trucks.length })}
+           </Pill>}
+           onClick={() => nav('/data/armada')} />) },
+
+    { key: 'drivers', tone: 'pri', node: (
+      <Row icon="user" title={t('driver.title')}
+           sub={freeDrivers.length
+             ? freeDrivers.map((d) => d.name).join(' · ')
+             : t('home.allBusy')}
+           right={<Pill tone={freeDrivers.length ? 'pri' : 'ok'}>
+             {freeDrivers.length
+               ? t('home.free', { n: freeDrivers.length })
+               : t('home.rolling', { a: busyDrivers.size, b: s.D.drivers.length })}
+           </Pill>}
+           onClick={() => nav('/data/sopir')} />) },
+
+    { key: 'docs', tone: docTone, node: (
+      <Row icon="doc" title={soonest.kind}
+           sub={`${soonest.plate} · ${dateDay(soonest.date, dict)}`}
+           right={<Pill tone={docTone} dot={docTone !== 'ok'}>
+             {t('fleet.daysLeft', { n: soonest.days })}
+           </Pill>}
+           onClick={() => nav('/data/armada')} />) },
+
+    { key: 'invoices', tone: late.length ? 'dang' : 'mut', node: (
+      <Row icon="cash" title={t('dash.tabInvoice')}
+           sub={late.length ? t('home.late', { n: late.length }) : t('home.onTime')}
+           right={<Pill tone={late.length ? 'dang' : 'mut'} dot={late.length > 0}>
+             {t('home.unpaid', { n: open.length })}
+           </Pill>}
+           onClick={() => nav('/laba')} />) },
+  ]
+
+  return rows
+    .map((r, i) => ({ ...r, i }))
+    .sort((a, b) => (SEV[b.tone] - SEV[a.tone]) || (a.i - b.i))
+    .map((r) => <Fragment key={r.key}>{r.node}</Fragment>)
 }

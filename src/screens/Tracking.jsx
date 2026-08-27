@@ -5,7 +5,7 @@ import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet } from '../components/bits.jsx'
 import RouteMap from '../components/RouteMap.jsx'
 import Icon from '../components/Icon.jsx'
-import { timeWib, dateShort, ago } from '../lib/format.js'
+import { timeWib, dateShort, ago, minutesBetween } from '../lib/format.js'
 import { route, NOW, business } from '../data/demoData.js'
 
 export default function Tracking() {
@@ -108,6 +108,7 @@ export default function Tracking() {
 /* ---- mode boîtier GPS ---------------------------------------------------- */
 function GpsMode({ t, lang, truck, tm, doneIds }) {
   if (!tm) return null
+  const stale = minutesBetween(tm.at, NOW) > 120
   return (
     <div className="flex-1 min-h-0 flex flex-col">
       <div className="px-3.5 pt-2 shrink-0">
@@ -153,11 +154,21 @@ function GpsMode({ t, lang, truck, tm, doneIds }) {
               <Icon n="pin" className="w-[14px] h-[14px]" style={{ color: 'var(--color-pri)' }} />
               <span className="font-bold">{tm.place}</span>
             </div>
-            <div className="subtle mt-1 flex items-center gap-1.5">
-              <Icon n="clock" className="w-[12px] h-[12px]" />
-              {t('track.lastUpdate')} {timeWib(tm.at)} · {ago(tm.at, NOW, lang)}
+            {/* Un relevé qui date n'est pas une information neutre : au-delà de
+                deux heures, la ligne le dit au lieu de le murmurer en gris. */}
+            <div className="mt-2 flex items-center gap-1.5 text-[11.5px]">
+              {stale ? (
+                <span className="pill pill-warn"><Icon n="alert" /> {t('track.stale')}</span>
+              ) : (
+                <Icon n="clock" className="w-[12px] h-[12px]"
+                      style={{ color: 'var(--color-mut-2)' }} />
+              )}
+              <span style={{ color: stale ? 'var(--color-warn)' : 'var(--color-mut-2)',
+                             fontWeight: stale ? 700 : 400 }}>
+                {timeWib(tm.at)} · {ago(tm.at, NOW, lang)}
+              </span>
               <span className="flex-1" />
-              <span className="code">{tm.deviceId}</span>
+              <span className="code" style={{ color: 'var(--color-mut-2)' }}>{tm.deviceId}</span>
             </div>
           </div>
         </Rise>
