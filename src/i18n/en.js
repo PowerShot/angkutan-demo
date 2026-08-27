@@ -120,6 +120,11 @@ export default {
           remindMsg: 'Good morning, this is a reminder for invoice {id} of {amount}, due {due}. Please confirm. Thank you.',
           alertOverdue: '{n} invoice past due' },
 
+  dest: { title: 'Rates & Destinations', mode: 'Chartered — no own fleet',
+          modeNote: 'Every trip is chartered from a carrier. Diesel, tolls and driver are the carrier’s cost.',
+          from: 'From {city}', hours: '{a}–{b} h',
+          rate: 'Customer rate', charter: 'Charter cost', margin: 'Margin per trip' },
+
   fleet: { title: 'Fleet', rentedFrom: 'Rented from', perMonth: 'per month',
            stnk: 'STNK', kir: 'KIR', validUntil: 'Valid until',
            daysLeft: '{n} days left', expired: 'Expired',

@@ -119,6 +119,11 @@ export default {
           remindMsg: 'Selamat pagi, kami ingin mengingatkan tagihan {id} sebesar {amount}, jatuh tempo {due}. Mohon konfirmasinya. Terima kasih.',
           alertOverdue: '{n} tagihan lewat jatuh tempo' },
 
+  dest: { title: 'Tarif & Tujuan', mode: 'Carter — tanpa armada sendiri',
+          modeNote: 'Setiap perjalanan disewa ke transporter. Solar, tol dan sopir ditanggung transporter.',
+          from: 'Dari {city}', hours: '{a}–{b} jam',
+          rate: 'Tarif ke pelanggan', charter: 'Biaya carter', margin: 'Laba per perjalanan' },
+
   fleet: { title: 'Armada', rentedFrom: 'Disewa dari', perMonth: 'per bulan',
            stnk: 'STNK', kir: 'KIR', validUntil: 'Berlaku s/d',
            daysLeft: '{n} hari lagi', expired: 'Sudah habis',

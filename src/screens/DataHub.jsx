@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Row, Pill } from '../components/bits.jsx'
-import { trucks, drivers, customers } from '../data/demoData.js'
+import { trucks, drivers, customers, destinations } from '../data/demoData.js'
 import { daysBetween } from '../lib/format.js'
 import { NOW } from '../data/demoData.js'
 
@@ -27,6 +27,9 @@ export default function DataHub() {
             <Row icon="bldg" title={t('customer.title')}
                  sub={`${customers.length} pelanggan`}
                  onClick={() => nav('/data/pelanggan')} />
+            <Row icon="cash" title={t('dest.title')}
+                 sub={destinations.map((d) => d.city).join(' · ')}
+                 onClick={() => nav('/data/tarif')} />
           </div>
         </Rise>
         <Rise i={1}>

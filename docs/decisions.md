@@ -75,6 +75,32 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Deux modèles économiques coexistent, et leurs prix divergent
+
+Le cahier des charges initial décrivait un camion **loué au mois**
+(Rp 25.000.000), avec gazole, péages et chauffeur à la charge de
+l'exploitation, et un tarif de Rp 13.000.000 pour Pekanbaru → Medan.
+
+Le modèle de démarrage réellement retenu est différent : **aucun véhicule en
+propre, chaque trajet affrété** (« carter »). Le transporteur fournit camion,
+chauffeur, gazole et péages ; l'exploitation encaisse la différence entre ce
+qu'elle facture et ce qu'elle paie.
+
+| Destination | Facturé | Payé | Marge |
+|---|---|---|---|
+| Medan | 7.000.000 | 5.500.000 | 1.500.000 |
+| Palembang | 7.000.000 | 5.500.000 | 1.500.000 |
+| Jambi | 5.500.000 | 4.000.000 | 1.500.000 |
+
+Un écran **Tarif & Tujuan** présente ce modèle, accessible depuis Data.
+
+**Point à trancher.** La démo affiche donc deux prix pour la même destination :
+Rp 13.000.000 pour Medan côté trajets (modèle camion loué), Rp 7.000.000 côté
+carter. Une partenaire du métier le repérera. Tant que la question n'est pas
+tranchée, les deux vivent côte à côte sur des écrans distincts et clairement
+étiquetés — mais il faudra choisir lequel gouverne les trajets de la
+démonstration.
+
 ## Les noms de villes étaient écrits en dur
 
 « Pekanbaru — Medan » apparaît sous le nom de l'application sur **l'écran de

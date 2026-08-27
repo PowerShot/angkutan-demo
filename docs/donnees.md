@@ -31,7 +31,8 @@ Le formatage indonésien — `Rp 13.000.000`, `26 Agustus 2026`, `21.40 WIB`,
 | `drivers` | nom, âge, WhatsApp, NIK, SIM, adresse KTP, statut, photo |
 | `customers` | raison sociale, contact, adresses de chargement et de déchargement, tarif, délai de paiement |
 | `route` | `from` et `to` (les deux villes affichées dans l'interface), les 7 points de passage avec coordonnées réelles et leur `short` pour les libellés courts, et `shape` pour le tracé sur la carte |
-| `tariffs` | tarif aller, tarif fret retour, pourcentage d'acompte |
+| `tariffs` | tarif aller, tarif fret retour, pourcentage d'acompte (modèle camion loué au mois) |
+| `destinations` | **modèle de carter** : trois destinations depuis Pekanbaru, avec le tarif facturé au client et le coût payé au transporteur |
 | `costs` | coûts par aller-retour et récapitulatif mensuel |
 | `tripCostBreakdown` | les 4 postes du calcul de rentabilité du tableau de bord |
 | `trips` | les 3 trajets du mois |
@@ -96,7 +97,10 @@ données fournies. Elles se corrigent dans `demoData.js` :
    boîtier GPS (vitesse, cap, niveau de gazole), distances cumulées des
    points de passage et horodatages des dépenses du trajet en cours :
    inventés de façon cohérente.
-5. **Nom du compte propriétaire** : `Bu Sari`. À remplacer par le prénom réel
+5. **Distances et durées des destinations de carter** (`km`, `hours`) et
+   coordonnées de Palembang et Jambi : ordres de grandeur, pas des chiffres
+   fournis. Les tarifs, eux, sont ceux que tu as donnés.
+6. **Nom du compte propriétaire** : `Bu Sari`. À remplacer par le prénom réel
    de la partenaire — c'est le détail qui rend la démo convaincante.
 
 ## Rentabilité

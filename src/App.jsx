@@ -16,6 +16,7 @@ import Fleet        from './screens/Fleet.jsx'
 import Drivers      from './screens/Drivers.jsx'
 import DriverDetail from './screens/DriverDetail.jsx'
 import Customers    from './screens/Customers.jsx'
+import Destinations from './screens/Destinations.jsx'
 import DriverTask   from './screens/DriverTask.jsx'
 import DriverLocation from './screens/DriverLocation.jsx'
 
@@ -45,6 +46,7 @@ export default function App() {
         <Route path="/data/sopir"     element={<Guard><Drivers /></Guard>} />
         <Route path="/data/sopir/:id" element={<Guard><DriverDetail /></Guard>} />
         <Route path="/data/pelanggan" element={<Guard><Customers /></Guard>} />
+        <Route path="/data/tarif"     element={<Guard><Destinations /></Guard>} />
 
         {/* ---- chauffeur ---- */}
         <Route path="/sopir/tugas"  element={<Guard><DriverTask /></Guard>} />

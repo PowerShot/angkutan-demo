@@ -208,6 +208,33 @@ export const route = {
   ],
 }
 
+/* -- Destinations et tarifs de carter ---------------------------------------
+   Modèle de démarrage : aucun véhicule en propre. Chaque trajet est affrété
+   auprès d'un transporteur — « carter » dans le métier.
+   `rate`        : ce qui est facturé au client.
+   `charterCost` : ce qui est payé au transporteur.
+   La différence est la marge, identique sur les trois destinations.
+
+   ▼ ESTIMÉ ▼ : `km`, `hours` et les coordonnées de Palembang et Jambi sont
+   des ordres de grandeur, pas des chiffres fournis. Les tarifs, eux, sont
+   ceux que tu m'as donnés.                                                 */
+export const charterOrigin = 'Pekanbaru'
+
+export const destinations = [
+  { id: 'DST-MES', city: 'Medan',     province: 'Sumatera Utara',
+    lat: 3.5952, lon: 98.6722,   km: 750, hours: [14, 16],
+    rate: 7000000, charterCost: 5500000 },
+  { id: 'DST-PLM', city: 'Palembang', province: 'Sumatera Selatan',
+    lat: -2.9761, lon: 104.7754, km: 720, hours: [13, 15],
+    rate: 7000000, charterCost: 5500000 },
+  { id: 'DST-JMB', city: 'Jambi',     province: 'Jambi',
+    lat: -1.6101, lon: 103.6131, km: 470, hours: [9, 11],
+    rate: 5500000, charterCost: 4000000 },
+]
+
+/** Marge d'un trajet affrété : tarif client moins coût du carter. */
+export const charterMargin = (d) => d.rate - d.charterCost
+
 /* -- Tarifs -------------------------------------------------------------- */
 export const tariffs = {
   outbound: 13000000,   // Pekanbaru → Medan, camion complet ~8 t
