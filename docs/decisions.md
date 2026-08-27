@@ -1,5 +1,9 @@
 # Décisions prises sans validation
 
+> Ce fichier est un **journal** : ce qui a été décidé et pourquoi.
+> Les **règles à suivre** qui en découlent sont dans `CLAUDE.md`, à la racine,
+> qui est chargé automatiquement à chaque session de travail.
+
 Consigné comme convenu : à partir de la consigne « itère sans plus me poser
 de questions », voici tout ce que j'ai tranché seul et pourquoi.
 

@@ -38,6 +38,8 @@ Rien n'est écrit en dur dans les écrans.
 
 ## Documentation
 
+- [`CLAUDE.md`](CLAUDE.md) — **les règles de travail** : interface, données,
+  interdits, pièges déjà rencontrés
 - [`docs/donnees.md`](docs/donnees.md) — où changer chaque chiffre
 - [`docs/prompts-photos.md`](docs/prompts-photos.md) — remplacer les portraits
 - [`docs/deploiement.md`](docs/deploiement.md) — publier une mise à jour
