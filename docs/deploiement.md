@@ -46,6 +46,8 @@ Aucune clé d'API, aucun compte, aucune facturation, et **aucune tuile
 OpenStreetMap n'est mise en cache** : leur politique d'usage interdit le
 téléchargement en masse, et le fond vectoriel remplit ce rôle légalement.
 
+Le site publié pèse **916 Ko**, dont 700 Ko de code et 144 Ko de portraits.
+
 ## Ce qui n'est pas dans la maquette
 
 Pas de serveur, pas de base de données, pas d'authentification réelle, pas de

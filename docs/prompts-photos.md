@@ -4,21 +4,23 @@ Les photos actuelles sont **temporaires**. Ce fichier contient les prompts à
 donner à Nano Banana (ou à tout autre générateur d'images) pour les remplacer
 par des visages générés, cohérents avec les âges de la fiche.
 
-## État actuel
+## État actuel — terminé
 
-| Chauffeur | Photo | À faire |
-|---|---|---|
-| **Sudarmanto**, 41 ans | ✅ visage **généré** | rien |
-| **Hendra Gunawan**, 34 ans | ⚠️ photo libre de droit d'une **personne réelle** | remplacer avec le prompt 2 |
+| Chauffeur | Photo |
+|---|---|
+| **Sudarmanto**, 41 ans | visage **généré**, prompt 1 |
+| **Hendra Gunawan**, 34 ans | visage **généré**, prompt 2 |
+| **Anwar Siregar**, 37 ans | avatar aux initiales — chauffeur inventé du second camion |
 
-Le portrait de Sudarmanto a été généré à partir du prompt 1 ci-dessous, puis
-recadré en 480 × 640. L'original non recadré est conservé dans
-`docs/photos-sources/sudarmanto-original.jpeg`.
+**Aucune personne réelle n'apparaît plus dans la démonstration**, ni sur les
+fiches, ni sur les reproductions de KTP. C'était le dernier point du rendu qui
+méritait correction avant diffusion large ; il est réglé.
 
-**Il reste Hendra.** Sa photo apparaît sur sa fiche **et sur la reproduction
-de sa KTP**. Le lien de démonstration étant public, une carte d'identité
-factice portant le visage d'une personne réelle est le dernier point du
-rendu qui mérite d'être corrigé avant diffusion large.
+Les originaux non recadrés sont conservés dans `docs/photos-sources/`, hors du
+dossier publié — inutile d'expédier 3 Mo par portrait au navigateur. Les
+versions servies font 480 × 640 pour environ 70 Ko chacune.
+
+Ce fichier reste utile pour régénérer un portrait ou en ajouter un troisième.
 
 ## Où déposer les fichiers
 
@@ -42,7 +44,7 @@ horizontalement, le second verticalement. Baisser la valeur remonte le visage.
 
 ---
 
-## Prompt 1 — Sudarmanto, 41 ans *(déjà utilisé)*
+## Prompt 1 — Sudarmanto, 41 ans
 
 ```
 Photorealistic head-and-shoulders portrait of a 41-year-old Indonesian man
@@ -56,7 +58,7 @@ no studio lighting, no logos, no text. Documentary photography style,
 85mm lens. Vertical 3:4 framing, head centred, eyes on the upper third.
 ```
 
-## Prompt 2 — Hendra Gunawan, 34 ans *(à faire)*
+## Prompt 2 — Hendra Gunawan, 34 ans
 
 ```
 Photorealistic head-and-shoulders portrait of a 34-year-old Indonesian man

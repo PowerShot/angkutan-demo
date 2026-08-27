@@ -23,7 +23,7 @@ de questions », voici tout ce que j'ai tranché seul et pourquoi.
 | Couleur primaire **pétrole profond `#0F4E5C`** | Sobre et professionnel, distinct du vert WhatsApp et du rouge d'alerte. Aucune décoration ajoutée. |
 | **Pas de logo WhatsApp** | Le cahier des charges interdit de reproduire une marque réelle. Bulle de message générique dans le vert de la messagerie, avec le mot écrit. |
 | **Pas d'emblème Garuda sur la KTP** | Reproduire un emblème d'État est à éviter. Remplacé par une rosette guillochée neutre, qui donne l'aspect officiel sans copier l'emblème. |
-| Visage **généré** pour Sudarmanto, photo libre de droit pour Hendra | Le fonds libre de droit ne contient pratiquement aucun portrait d'Indonésien en âge de travailler cadré en buste : un seul visage exploitable trouvé, et toutes les autres photos de la série sont le même homme. Le portrait de Sudarmanto a été généré depuis le prompt fourni, ce qui règle la question pour lui. Reste Hendra, dont la photo est celle d'une personne réelle et apparaît sur sa KTP. |
+| **Deux visages générés**, plus aucune personne réelle | Le fonds libre de droit ne contient pratiquement aucun portrait d'Indonésien en âge de travailler cadré en buste : un seul visage exploitable trouvé, et toutes les autres photos de la série étaient le même homme. Les deux portraits ont finalement été générés depuis les prompts fournis, ce qui retire toute personne réelle des fiches et des reproductions de KTP. |
 | Photo **recadrée** en 480 × 640 | La source était un plan large. Recadrage tête-épaules à la génération du dépôt, pour que l'avatar et la KTP soient corrects sans bricolage CSS. |
 
 ## Technique
@@ -48,7 +48,7 @@ Sans cette vérification, la démonstration aurait affiché à la partenaire un
 message accusant l'application de violer la politique d'OpenStreetMap dès la
 moindre faiblesse de réseau.
 
-Le cache a été supprimé et remplacé par un **fond vectoriel Natural Earth**
+Le cache a été remplacé par un **fond vectoriel Natural Earth**
 (domaine public) : côtes et lacs réels de la région, 108 Ko, dessiné en
 permanence sous les tuiles. C'est de la vraie géographie — on y reconnaît la
 côte est de Sumatra, le détroit de Malacca et le lac Toba — et c'est
