@@ -80,10 +80,14 @@ unique et non une liste.
 Toutes les adresses étaient du texte : pour s'y rendre, le chauffeur devait
 la recopier dans son application de navigation, au volant.
 
-Un composant `NavButtons` ouvre **Maps** ou **Waze** depuis quatre endroits :
+Un composant `NavButtons` ouvre **Google Maps** depuis quatre endroits :
 écran du chauffeur, fiches clients, formulaire de commande, et suivi de
 position — ce dernier avec les **coordonnées du boîtier**, plus fiables
 qu'une chaîne de caractères.
+
+Waze figurait d'abord à côté ; il a été retiré, la partenaire ayant indiqué
+que ses chauffeurs ne l'utilisent pas. Les clés de traduction devenues
+orphelines ont été supprimées dans la foulée plutôt que laissées à traîner.
 
 La destination proposée au chauffeur **dépend de l'étape** : entrepôt de
 départ avant le chargement, lieu de déchargement en route, adresse du fret

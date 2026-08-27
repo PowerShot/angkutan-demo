@@ -38,11 +38,13 @@ des défauts qu'il a fallu corriger.**
 - **Aucune icône sans son libellé**, aucun menu hamburger, aucune action
   derrière un balayage ou un appui long. Confirmation avant tout changement
   d'état.
-- **Une adresse affichée est suivie de quoi la suivre.** Boutons Maps et
-  Waze (`NavButtons`), sinon on oblige à recopier une adresse au volant. Les
-  coordonnées sont préférées à l'adresse quand elles existent. La destination
-  proposée au chauffeur dépend de l'étape du trajet : entrepôt de départ,
-  lieu de déchargement, puis adresse du fret retour.
+- **Une adresse affichée est suivie de quoi la suivre.** Bouton
+  « Buka di Maps » (`NavButtons`), sinon on oblige à recopier une adresse au
+  volant. **Google Maps uniquement** : la partenaire indique que ses
+  chauffeurs n'utilisent pas Waze. Les coordonnées sont préférées à l'adresse
+  quand elles existent. La destination proposée au chauffeur dépend de
+  l'étape du trajet : entrepôt de départ, lieu de déchargement, puis adresse
+  du fret retour.
 - **Ce qui est cliquable doit se voir cliquable.** Fond plein, contour, ou
   chevron — jamais du texte centré en gris, qui se lit comme un intertitre.
   L'action secondaire prend un contour et une icône, plus petite que

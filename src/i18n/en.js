@@ -138,8 +138,7 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { change: 'Change', maps: 'Maps', waze: 'Waze',
-            navigate: 'Navigate', destination: 'Destination', back: 'Back', close: 'Close', all: 'All', search: 'Search',
+  common: { change: 'Change', maps: 'Open in Maps', destination: 'Destination', back: 'Back', close: 'Close', all: 'All', search: 'Search',
             today: 'Today', yesterday: 'Yesterday', more: 'More',
             seeAll: 'See all', open: 'Open', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Yes', no: 'No', of: 'of' },
