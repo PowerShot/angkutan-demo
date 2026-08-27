@@ -34,6 +34,11 @@ export default {
             tiba_bongkar: 'Tiba di lokasi bongkar', cari_muatan_balik: 'Cari muatan balik',
             pulang: 'Perjalanan pulang', selesai: 'Selesai' },
 
+  statusAction: { menuju_muat: 'Berangkat ke lokasi muat', proses_muat: 'Mulai muat',
+                  berangkat: 'Mulai perjalanan', tiba_bongkar: 'Tiba di lokasi bongkar',
+                  cari_muatan_balik: 'Mulai cari muatan balik',
+                  pulang: 'Mulai perjalanan pulang', selesai: 'Selesaikan perjalanan' },
+
   order: { title: 'Pesanan Baru', step: 'Langkah {a} dari {b}',
            s1: 'Data muatan', s2: 'Tarif & pembayaran', s3: 'Jadwal & sopir',
            suratJalan: 'No. Surat Jalan pelanggan', customer: 'Pelanggan',
@@ -62,6 +67,8 @@ export default {
           updated: 'Diperbarui', by: 'oleh', change: 'Ubah Status',
           pick: 'Pilih status', history: 'Riwayat', pending: 'Belum',
           cancel: 'Batal', confirm: 'Ya, ubah', next: 'Berikutnya',
+          pickOther: 'Pilih status lain',
+          from: 'Dari', to: 'Ke', allDone: 'Perjalanan selesai',
           list: 'Perjalanan', running: 'Berjalan', done: 'Selesai',
           emptyReturn: 'Pulang kosong — tidak ada muatan balik',
           backhaulBooked: 'Muatan balik sudah dipesan' },

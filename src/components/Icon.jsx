@@ -40,6 +40,11 @@ const P = {
   x:       'M6.2 6.2 17.8 17.8M17.8 6.2 6.2 17.8',
   gauge:   'M4.2 17.4a8.8 8.8 0 1 1 15.6 0M12 13.6l3.8-3.4',
   send:    'M20.6 3.4 2.9 10.8l6.9 2.4 2.4 6.9z M9.8 13.2 20.6 3.4',
+  nav:     'M12 3 19.4 20.6 12 16.9 4.6 20.6z',
+  uturn:   'M8.2 20.4V10.6a4 4 0 0 1 8 0V16',
+  uturnL:  'M12.6 12.6 16.2 16.2 19.8 12.6',
+  checkCircle: 'M12 20.8a8.8 8.8 0 1 0 0-17.6 8.8 8.8 0 0 0 0 17.6z',
+  checkCircleL:'M7.9 12.1 10.9 15.2 16.3 9.3',
   box:     'M12 3.4 20.4 7.6v8.8L12 20.6 3.6 16.4V7.6z M3.6 7.6 12 11.8l8.4-4.2M12 11.8v8.8',
   weight:  'M12 4.2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5.8 20.4 7.6 9.6h8.8l1.8 10.8z',
   refresh: 'M20 12a8 8 0 1 1-2.6-5.9M20 3.6v4.2h-4.2',
@@ -72,7 +77,8 @@ export default function Icon({ n, className = '', filled = false, ...rest }) {
   }
   const extra = { truck: 'truckW', pin: 'pinDot', receipt: 'receiptL', doc: 'docL',
                   user: 'userB', bldg: 'bldgW', camera: 'cameraL', chat: 'chatL',
-                  fuel: 'fuelL', target: 'targetD', note: 'noteL' }[n]
+                  fuel: 'fuelL', target: 'targetD', note: 'noteL',
+                  uturn: 'uturnL', checkCircle: 'checkCircleL' }[n]
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor"
          strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"

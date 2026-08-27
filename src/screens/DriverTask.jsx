@@ -3,18 +3,27 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Btn, Sheet, Pill, Row } from '../components/bits.jsx'
+import { StatusBadge, StatusPill, Btn, Sheet, Pill, Row } from '../components/bits.jsx'
+import Icon from '../components/Icon.jsx'
 import { rp, timeWib } from '../lib/format.js'
+import { metaOf } from '../lib/status.js'
 import { TRIP_STATUSES, NOW } from '../data/demoData.js'
 
-/* Écran d'accueil du chauffeur : une seule mission, une seule action
-   principale, tout le reste en dessous. */
+/* =========================================================================
+   ÉCRAN DU CHAUFFEUR
+   Une seule mission, une seule action principale, et un bouton qui dit ce
+   qu'il fait — « Mulai muat » plutôt que « Ubah Status ». Choisir une autre
+   étape reste possible, en second rang, pour corriger une erreur.
+   Le statut courant occupe le haut de l'écran avec sa couleur et son icône :
+   un changement se voit sans avoir à lire.
+   ========================================================================= */
 export default function DriverTask() {
   const { t } = useT()
   const s = useStore()
   const act = useAct()
   const nav = useNavigate()
-  const [open, setOpen] = useState(false)
+  const [picking, setPicking] = useState(false)
+  const [confirm, setConfirm] = useState(null)
 
   const trip = s.activeTripOf(s.session?.driverId)
   if (!trip) return null
@@ -24,50 +33,76 @@ export default function DriverTask() {
   const idx = TRIP_STATUSES.indexOf(trip.status)
   const next = TRIP_STATUSES[idx + 1]
   const spent = s.expenseTotal(trip.id)
+  const tone = metaOf(trip.status).tone
+
+  const apply = (status) => {
+    act('setStatus', { tripId: trip.id, status, at: NOW, by: trip.driverId })
+    setConfirm(null); setPicking(false)
+  }
 
   return (
     <>
       <TopBar title={t('nav.task')} sub={trip.id} />
       <Screen>
+        {/* -- où j'en suis -- */}
         <Rise i={0}>
-          <div className="hero">
-            <div className="k-on">{t('trip.current')}</div>
-            <div className="text-[23px] font-extrabold tracking-[-.02em] mt-1.5 leading-tight">
-              {t(`status.${trip.status}`)}
-            </div>
-            <div className="flex items-center gap-2 mt-2.5">
-              <span className="plate text-[13.5px] font-bold" style={{ color: '#C7DEE4' }}>
-                {truck.plate}
+          <StatusBadge status={trip.status} step={idx + 1} total={TRIP_STATUSES.length} />
+          <div className={`steps mt-3 ${tone}`}>
+            {TRIP_STATUSES.map((st, i) => (
+              <i key={st} data-on={i <= idx ? '1' : '0'} data-now={i === idx ? '1' : '0'} />
+            ))}
+          </div>
+        </Rise>
+
+        {/* -- ce que je fais maintenant -- */}
+        <Rise i={1} className="pt-1">
+          {next ? (
+            <>
+              <Btn variant={`btn-st ${metaOf(next).tone}`} icon={metaOf(next).icon}
+                   onClick={() => setConfirm(next)}>
+                {t(`statusAction.${next}`)}
+              </Btn>
+              <button onClick={() => setPicking(true)}
+                      className="w-full text-center text-[12.5px] font-bold pt-3 pb-1"
+                      style={{ color: 'var(--color-mut)' }}>
+                {t('trip.pickOther')}
+              </button>
+            </>
+          ) : (
+            <div className="card flex items-center gap-2.5"
+                 style={{ background: 'var(--color-ok-bg)' }}>
+              <Icon n="checkCircle" className="w-5 h-5 shrink-0"
+                    style={{ color: 'var(--color-ok)' }} />
+              <span className="text-[13.5px] font-bold" style={{ color: 'var(--color-ok)' }}>
+                {t('trip.allDone')}
               </span>
-              <span style={{ color: 'rgb(255 255 255 / .3)' }}>·</span>
-              <span className="text-[12.5px]" style={{ color: '#9CC3CE' }}>
+            </div>
+          )}
+        </Rise>
+
+        {/* -- le chargement -- */}
+        <Rise i={2}>
+          <div className="card">
+            <div className="flex items-center gap-2">
+              <span className="plate text-[15px] font-bold">{truck.plate}</span>
+              <span style={{ color: 'var(--color-line)' }}>·</span>
+              <span className="sub truncate">
                 {trip.outbound.tonnage} {t('order.ton')} · {trip.outbound.cargo}
               </span>
             </div>
-          </div>
-        </Rise>
-
-        {next && (
-          <Rise i={1}>
-            <div className="card" style={{ background: 'var(--color-pri-50)', borderColor: 'var(--color-pri-100)' }}>
-              <div className="k mb-1.5">{t('trip.next')}</div>
-              <div className="text-[15px] font-extrabold">{t(`status.${next}`)}</div>
-              <div className="mt-3">
-                <Btn icon="check" onClick={() => setOpen(true)}>{t('trip.change')}</Btn>
-              </div>
+            <div className="text-[13.5px] font-bold mt-2.5 leading-snug">{out.name}</div>
+            <div className="sub mt-0.5">{out.unloadAddress}</div>
+            <div className="mt-3 pt-2.5 border-t flex items-center gap-2 text-[11.5px]"
+                 style={{ borderColor: 'var(--color-line-2)', color: 'var(--color-mut)' }}>
+              <Icon n="doc" className="w-[13px] h-[13px]" />
+              <span className="code">{trip.outbound.suratJalan}</span>
+              <span className="flex-1" />
+              <span>{out.contact}</span>
             </div>
-          </Rise>
-        )}
-
-        <Rise i={2}>
-          <div className="card-flush">
-            <Row icon="bldg" title={out.name}
-                 sub={`${out.contact} · ${out.phone}`} />
-            <Row icon="pin" title={t('order.unloadAt')} sub={out.unloadAddress} />
-            <Row icon="doc" title={t('order.suratJalan')} sub={trip.outbound.suratJalan} />
           </div>
         </Rise>
 
+        {/* -- mes deux autres gestes -- */}
         <Rise i={3}>
           <div className="card-flush">
             <Row icon="receipt" title={t('costs.title')}
@@ -80,20 +115,53 @@ export default function DriverTask() {
         </Rise>
       </Screen>
 
-      {open && (
-        <Sheet title={t('trip.pick')} onClose={() => setOpen(false)}>
+      {/* -- confirmation : le changement se voit avant d'être appliqué -- */}
+      {confirm && (
+        <Sheet title={t('trip.change')} onClose={() => setConfirm(null)}
+               footer={
+                 <div className="grid grid-cols-2 gap-2.5 pb-2">
+                   <Btn variant="btn-quiet" onClick={() => setConfirm(null)}>{t('trip.cancel')}</Btn>
+                   <Btn onClick={() => apply(confirm)}>{t('trip.confirm')}</Btn>
+                 </div>
+               }>
+          <div className="px-4 pb-4 flex flex-col gap-3">
+            <div>
+              <div className="k mb-1.5">{t('trip.from')}</div>
+              <StatusPill status={trip.status} />
+            </div>
+            <Icon n="chevD" className="w-5 h-5 mx-auto"
+                  style={{ color: 'var(--color-mut-2)' }} />
+            <div>
+              <div className="k mb-2">{t('trip.to')}</div>
+              <StatusBadge status={confirm} />
+            </div>
+          </div>
+        </Sheet>
+      )}
+
+      {/* -- correction : choisir une autre étape -- */}
+      {picking && (
+        <Sheet title={t('trip.pick')} onClose={() => setPicking(false)}>
           <div className="pb-2">
-            {TRIP_STATUSES.map((st, i) => (
-              <button key={st} className="row w-full text-left"
-                      style={{ opacity: i < idx ? .5 : 1 }}
-                      onClick={() => { act('setStatus', { tripId: trip.id, status: st, at: NOW, by: trip.driverId }); setOpen(false) }}>
-                <span className="w-6 shrink-0 text-[11px] font-extrabold tabular-nums"
-                      style={{ color: 'var(--color-mut-2)' }}>{i + 1}</span>
-                <span className="row-t flex-1">{t(`status.${st}`)}</span>
-                {i === idx && <Pill tone="pri" dot>{t('trip.current')}</Pill>}
-                {i === idx + 1 && <Pill tone="ok">{t('trip.next')}</Pill>}
-              </button>
-            ))}
+            {TRIP_STATUSES.map((st, i) => {
+              const m = metaOf(st)
+              const done = i < idx
+              return (
+                <button key={st} className={`row w-full text-left ${m.tone}`}
+                        onClick={() => { setPicking(false); setConfirm(st) }}>
+                  <span className="stdot" data-done={done ? '1' : '0'}
+                        data-now={i === idx ? '1' : '0'}>
+                    <Icon n={m.icon} />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="row-t block">{t(`status.${st}`)}</span>
+                    <span className="row-s block">{t('order.step', { a: i + 1, b: TRIP_STATUSES.length })}</span>
+                  </span>
+                  {i === idx && <Pill tone="pri" dot>{t('trip.current')}</Pill>}
+                  {i === idx + 1 && <Pill tone="ok">{t('trip.next')}</Pill>}
+                </button>
+              )
+            })}
           </div>
         </Sheet>
       )}

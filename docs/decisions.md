@@ -71,6 +71,32 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Statuts : couleur, icône, et un bouton qui dit ce qu'il fait
+
+Le changement de statut côté chauffeur n'était pas intuitif et un changement
+se voyait à peine. Trois causes :
+
+- **cinq statuts sur sept partageaient la même couleur**, donc passer d'une
+  étape à l'autre ne changeait presque rien à l'écran ;
+- aucun statut n'avait d'icône : les sept lignes étaient identiques ;
+- le bouton disait « Ubah Status », une formule abstraite, puis imposait de
+  lire sept libellés — au volant, d'une main. Un appui sur une ligne
+  appliquait le changement **sans confirmation**.
+
+Ce qui a été fait :
+
+| Décision | Raison |
+|---|---|
+| **Une icône et une couleur par étape** (`src/lib/status.js`) | Un changement de statut se voit sans avoir à lire. Sept teintes profondes et peu saturées, de la même famille, employées uniquement par la pastille, le bandeau et la frise — la couleur signale l'étape, elle ne décore pas. |
+| **Le bouton nomme l'action** : « Mulai muat », « Tiba di lokasi bongkar » | Le cas courant devient un seul appui sur un bouton qui dit ce qu'il fait, au lieu d'un menu à sept entrées. |
+| **Le bouton porte la couleur de l'étape qu'il déclenche** | La chaîne bouton → badge → frise se lit d'une seule traite. |
+| **Confirmation « Dari → Ke »** avec les deux statuts en couleur | Un appui accidentel ne change plus l'état du trajet, et le conducteur voit le changement avant de le valider. |
+| « Pilih status lain » en second rang | Corriger une erreur reste possible sans encombrer le geste courant. |
+| Frise de sept segments + « Langkah 3 dari 7 » écrit en toutes lettres | Répond à « où j'en suis » sans lecture. |
+
+Corrige aussi : le message de confirmation s'affichait **par-dessus** la
+feuille basse, alors que la feuille est la surface active.
+
 ## Barre d'état simulée : retirée du téléphone
 
 Une fausse barre d'état — heure, réseau, batterie — était dessinée en haut de

@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusPill, Btn, Sheet, Pill } from '../components/bits.jsx'
+import { StatusPill, StatusBadge, Btn, Sheet, Pill } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { stamp, timeWib, dateShort } from '../lib/format.js'
 import { TRIP_STATUSES, NOW } from '../data/demoData.js'
+import { metaOf } from '../lib/status.js'
 
 /* Mise à jour du statut. La « liste déroulante » du cahier des charges est
    rendue en feuille basse : les sept statuts sont visibles d'un coup, dans
@@ -36,15 +37,15 @@ export default function TripStatus() {
       <TopBar title={t('trip.title')} sub={trip.id} back />
       <Screen>
         <Rise i={0}>
-          <div className="hero">
-            <div className="k-on">{t('trip.current')}</div>
-            <div className="text-[22px] font-extrabold tracking-[-.02em] mt-1.5 leading-tight">
-              {t(`status.${trip.status}`)}
-            </div>
-            <div className="text-[12px] mt-2 flex items-center gap-1.5" style={{ color: '#9CC3CE' }}>
-              <Icon n="clock" className="w-[13px] h-[13px]" />
-              {t('trip.updated')} {stamp(doneAt[trip.status] ?? NOW, dict)} · {t('trip.by')} {driver.name}
-            </div>
+          <StatusBadge status={trip.status} step={idx + 1} total={TRIP_STATUSES.length} />
+          <div className={`steps mt-3 ${metaOf(trip.status).tone}`}>
+            {TRIP_STATUSES.map((st, i) => (
+              <i key={st} data-on={i <= idx ? '1' : '0'} data-now={i === idx ? '1' : '0'} />
+            ))}
+          </div>
+          <div className="subtle mt-2.5 flex items-center gap-1.5">
+            <Icon n="clock" className="w-[13px] h-[13px]" />
+            {t('trip.updated')} {stamp(doneAt[trip.status] ?? NOW, dict)} · {t('trip.by')} {driver.name}
           </div>
         </Rise>
 
@@ -104,12 +105,16 @@ export default function TripStatus() {
               const isNext = i === idx + 1
               return (
                 <button key={st} onClick={() => setConfirm(st)}
-                        className="row w-full text-left" style={{ opacity: done && i !== idx ? .55 : 1 }}>
-                  <span className="w-6 shrink-0 text-[11px] font-extrabold tabular-nums"
-                        style={{ color: 'var(--color-mut-2)' }}>{i + 1}</span>
+                        className={`row w-full text-left ${metaOf(st).tone}`}>
+                  <span className="stdot" data-done={done && i !== idx ? '1' : '0'}
+                        data-now={i === idx ? '1' : '0'}>
+                    <Icon n={metaOf(st).icon} />
+                  </span>
                   <span className="flex-1 min-w-0">
                     <span className="row-t block">{t(`status.${st}`)}</span>
-                    {doneAt[st] && <span className="row-s block">{timeWib(doneAt[st])}</span>}
+                    <span className="row-s block">
+                      {doneAt[st] ? timeWib(doneAt[st]) : t('order.step', { a: i + 1, b: TRIP_STATUSES.length })}
+                    </span>
                   </span>
                   {i === idx && <Pill tone="pri" dot>{t('trip.current')}</Pill>}
                   {isNext && <Pill tone="ok">{t('trip.next')}</Pill>}
@@ -130,9 +135,16 @@ export default function TripStatus() {
                    <Btn onClick={() => apply(confirm)}>{t('trip.confirm')}</Btn>
                  </div>
                }>
-          <div className="px-4 pb-3">
-            <p className="sub">{t('trip.current')} → </p>
-            <div className="mt-2"><StatusPill status={confirm} /></div>
+          <div className="px-4 pb-4 flex flex-col gap-3">
+            <div>
+              <div className="k mb-1.5">{t('trip.from')}</div>
+              <StatusPill status={trip.status} />
+            </div>
+            <Icon n="chevD" className="w-5 h-5 mx-auto" style={{ color: 'var(--color-mut-2)' }} />
+            <div>
+              <div className="k mb-2">{t('trip.to')}</div>
+              <StatusBadge status={confirm} />
+            </div>
           </div>
         </Sheet>
       )}

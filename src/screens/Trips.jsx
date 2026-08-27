@@ -58,14 +58,14 @@ export default function Trips() {
 
                 <div className="mt-3 flex flex-col gap-1.5 text-[12.5px]">
                   <div className="flex items-center gap-2">
-                    <span className="w-[52px] shrink-0 text-[10.5px] font-extrabold uppercase"
-                          style={{ color: 'var(--color-mut-2)', letterSpacing: '.08em' }}>PKU→MES</span>
+                    <span className="w-[62px] shrink-0 text-[10px] font-extrabold uppercase"
+                          style={{ color: 'var(--color-mut-2)', letterSpacing: '.04em' }}>PKU→MES</span>
                     <span className="flex-1 truncate font-semibold">{out.name}</span>
                     <span className="tabular-nums font-bold">{rp(trip.outbound.rate)}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="w-[52px] shrink-0 text-[10.5px] font-extrabold uppercase"
-                          style={{ color: 'var(--color-mut-2)', letterSpacing: '.08em' }}>MES→PKU</span>
+                    <span className="w-[62px] shrink-0 text-[10px] font-extrabold uppercase"
+                          style={{ color: 'var(--color-mut-2)', letterSpacing: '.04em' }}>MES→PKU</span>
                     {back ? (
                       <>
                         <span className="flex-1 truncate font-semibold">{back.name}</span>

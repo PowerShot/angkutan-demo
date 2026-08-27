@@ -35,6 +35,11 @@ export default {
             tiba_bongkar: 'Arrived at unloading', cari_muatan_balik: 'Looking for return load',
             pulang: 'Return trip', selesai: 'Completed' },
 
+  statusAction: { menuju_muat: 'Head to loading point', proses_muat: 'Start loading',
+                  berangkat: 'Start the trip', tiba_bongkar: 'Arrived at unloading',
+                  cari_muatan_balik: 'Look for return load',
+                  pulang: 'Start return trip', selesai: 'Complete trip' },
+
   order: { title: 'New Order', step: 'Step {a} of {b}',
            s1: 'Cargo details', s2: 'Rate & payment', s3: 'Schedule & driver',
            suratJalan: 'Customer surat jalan no.', customer: 'Customer',
@@ -63,6 +68,8 @@ export default {
           updated: 'Updated', by: 'by', change: 'Change Status',
           pick: 'Choose status', history: 'History', pending: 'Pending',
           cancel: 'Cancel', confirm: 'Yes, change', next: 'Next',
+          pickOther: 'Choose another status',
+          from: 'From', to: 'To', allDone: 'Trip completed',
           list: 'Trips', running: 'In progress', done: 'Completed',
           emptyReturn: 'Ran back empty — no muatan balik found',
           backhaulBooked: 'Muatan balik already booked' },

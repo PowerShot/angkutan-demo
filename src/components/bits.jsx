@@ -1,21 +1,37 @@
 import Icon from './Icon.jsx'
 import { useT } from '../i18n/index.jsx'
 import { rp, initials } from '../lib/format.js'
+import { metaOf } from '../lib/status.js'
 
 /* -- pastille de statut ---------------------------------------------------
-   L'état est encodé par la forme ET la couleur, jamais par la couleur seule. */
-const TONE = {
-  menunggu_muat: 'mut', menuju_muat: 'pri', proses_muat: 'pri', berangkat: 'pri',
-  tiba_bongkar: 'pri', cari_muatan_balik: 'warn', pulang: 'pri', selesai: 'ok',
-}
+   Icône + couleur propres à l'étape : un changement de statut se voit sans
+   avoir à lire le libellé. */
 export function StatusPill({ status, live = false }) {
   const { t } = useT()
-  const tone = TONE[status] ?? 'mut'
+  const { icon, tone } = metaOf(status)
   return (
-    <span className={`pill pill-${tone}`}>
-      <i className={`bead ${live ? 'bead-live' : ''}`} />
+    <span className={`pill pill-st ${tone}`}>
+      <Icon n={icon} className={live ? 'breathe' : ''} />
       {t(`status.${status}`)}
     </span>
+  )
+}
+
+/* Version grand format, pour le bandeau du chauffeur : c'est elle qui rend
+   le changement d'étape spectaculaire. */
+export function StatusBadge({ status, step, total }) {
+  const { t } = useT()
+  const { icon, tone } = metaOf(status)
+  return (
+    <div className={`stbadge ${tone}`}>
+      <span className="stbadge-ic"><Icon n={icon} /></span>
+      <span className="min-w-0 flex-1">
+        {step != null && (
+          <span className="stbadge-step">{t('order.step', { a: step, b: total })}</span>
+        )}
+        <span className="stbadge-lbl">{t(`status.${status}`)}</span>
+      </span>
+    </div>
   )
 }
 

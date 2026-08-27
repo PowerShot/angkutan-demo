@@ -237,9 +237,9 @@
               box-shadow:var(--shadow-card)}
 
   /* -- feuille basse ---------------------------------------------------- */
-  .scrim{@apply absolute inset-0 z-40; background:rgb(8 22 26 / .42);
+  .scrim{@apply absolute inset-0 z-[65]; background:rgb(8 22 26 / .42);
          animation:fade .22s ease both}
-  .sheet{@apply absolute left-0 right-0 bottom-0 z-50 rounded-t-[22px] overflow-hidden;
+  .sheet{@apply absolute left-0 right-0 bottom-0 z-[70] rounded-t-[22px] overflow-hidden;
          background:var(--color-surf); box-shadow:var(--shadow-sheet);
          animation:sheetUp .3s cubic-bezier(.2,.9,.25,1) both;
          padding-bottom:max(env(safe-area-inset-bottom),10px)}
@@ -364,3 +364,55 @@
   font-size:10px;font-weight:800;letter-spacing:.03em;
   padding:4px 8px;border-radius:999px;background:rgb(255 255 255 /.94);
   color:#8A5A05;box-shadow:0 1px 3px rgb(13 22 24 /.2)}
+
+/* =========================================================================
+   COULEURS DE STATUT — une par étape du trajet.
+   Utilisées uniquement par la pastille, le bandeau du chauffeur et la frise.
+   Tout le reste de l'interface reste neutre : la couleur signale l'étape,
+   elle ne décore pas.
+   ========================================================================= */
+.st-tunggu   { --st:#5F7278; --st-bg:#EDF1F1 }
+.st-menuju   { --st:#4B6470; --st-bg:#E8EDEF }
+.st-muat     { --st:#8A5A05; --st-bg:#FAEFD8 }
+.st-berangkat{ --st:#0F4E5C; --st-bg:#DCEAED }
+.st-tiba     { --st:#3E4E8C; --st-bg:#E6E9F5 }
+.st-cari     { --st:#94551F; --st-bg:#F7EBE0 }
+.st-pulang   { --st:#245F86; --st-bg:#E2ECF3 }
+.st-selesai  { --st:#0F7A4B; --st-bg:#E4F2EA }
+
+.pill-st{background:var(--st-bg);color:var(--st)}
+.pill-st svg{width:12px;height:12px;stroke-width:2.1;flex:0 0 auto}
+
+/* Bandeau de statut du chauffeur : grande icône, couleur de l'étape. */
+.stbadge{display:flex;align-items:center;gap:14px;border-radius:18px;padding:16px;
+  background:var(--st-bg);color:var(--st);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--st) 16%, transparent)}
+.stbadge-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;
+  background:var(--st);color:#fff;flex:0 0 auto;
+  box-shadow:0 4px 14px -4px color-mix(in srgb, var(--st) 55%, transparent)}
+.stbadge-ic svg{width:26px;height:26px;stroke-width:1.9}
+.stbadge-step{display:block;font-size:10.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;opacity:.72}
+.stbadge-lbl{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em;
+  line-height:1.2;margin-top:2px;text-wrap:balance}
+
+/* Frise des sept étapes, colorée jusqu'à l'étape courante. */
+.steps{display:flex;align-items:center;gap:3px}
+.steps i{flex:1;height:5px;border-radius:99px;background:var(--color-line)}
+.steps i[data-on="1"]{background:var(--st)}
+.steps i[data-now="1"]{background:var(--st);box-shadow:0 0 0 3px color-mix(in srgb, var(--st) 22%, transparent)}
+
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.45}}
+.breathe{animation:breathe 2.2s ease-in-out infinite}
+
+/* Pastille d'étape dans la liste de choix : pleine si franchie, cerclée sinon. */
+.stdot{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;flex:0 0 auto;
+  background:var(--st-bg);color:var(--st)}
+.stdot[data-now="1"]{background:var(--st);color:#fff;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--st) 20%, transparent)}
+.stdot[data-done="1"]{opacity:.5}
+.stdot svg{width:18px;height:18px;stroke-width:1.9}
+
+/* Le bouton principal du chauffeur porte la couleur de l'étape qu'il déclenche :
+   la chaîne bouton → badge → frise se lit d'une seule traite. */
+.btn-st{background:var(--st)}
