@@ -38,6 +38,11 @@ des défauts qu'il a fallu corriger.**
 - **Aucune icône sans son libellé**, aucun menu hamburger, aucune action
   derrière un balayage ou un appui long. Confirmation avant tout changement
   d'état.
+- **Ce qui est cliquable doit se voir cliquable.** Fond plein, contour, ou
+  chevron — jamais du texte centré en gris, qui se lit comme un intertitre.
+  L'action secondaire prend un contour et une icône, plus petite que
+  l'action principale : c'est la hiérarchie qui distingue, pas l'absence de
+  forme.
 - **Mobile d'abord, usage à une main.** Cible de test : **360 × 640**, la
   largeur Android d'entrée de gamme. Vérifier aussi 390 × 844 et qu'un écran
   large ne casse rien — sans concevoir de version dédiée.

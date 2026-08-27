@@ -210,8 +210,12 @@ export function SectionTitle({ children, action, onAction }) {
     <div className="flex items-baseline gap-2 pt-1">
       <h2 className="k flex-1">{children}</h2>
       {action && (
-        <button onClick={onAction} className="text-[11px] font-bold shrink-0"
-                style={{ color: 'var(--color-pri)' }}>{action}</button>
+        <button onClick={onAction}
+                className="flex items-center gap-0.5 text-[11px] font-bold shrink-0"
+                style={{ color: 'var(--color-pri)' }}>
+          {action}
+          <Icon n="chevR" className="w-[12px] h-[12px]" />
+        </button>
       )}
     </div>
   )

@@ -62,11 +62,13 @@ export default function DriverTask() {
                    onClick={() => setConfirm(next)}>
                 {t(`statusAction.${next}`)}
               </Btn>
-              <button onClick={() => setPicking(true)}
-                      className="w-full text-center text-[12.5px] font-bold pt-3 pb-1"
-                      style={{ color: 'var(--color-mut)' }}>
-                {t('trip.pickOther')}
-              </button>
+              {/* Action secondaire : contour et icône, pour qu'elle se lise comme
+                  un bouton et non comme un intertitre. */}
+              <div className="mt-2.5">
+                <Btn variant="btn-ghost btn-sm" icon="list" onClick={() => setPicking(true)}>
+                  {t('trip.pickOther')}
+                </Btn>
+              </div>
             </>
           ) : (
             <div className="card flex items-center gap-2.5"

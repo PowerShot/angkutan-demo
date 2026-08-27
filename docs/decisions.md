@@ -75,6 +75,20 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## « Pilih status lain » se lisait comme un intertitre
+
+L'action secondaire du chauffeur était un texte centré, gras, en gris —
+sans fond, sans contour, sans icône, posé sous un bouton plein. Elle avait
+toutes les caractéristiques d'un titre de section et aucune de celles d'un
+bouton.
+
+Elle est devenue un bouton contourné avec icône, 40 px de haut contre 52 pour
+l'action principale : la hiérarchie distingue les deux, l'affordance ne
+disparaît pas. « Lihat semua » a gagné un chevron au passage.
+
+Un contrôle a été passé sur l'ensemble des éléments cliquables : chacun porte
+désormais un fond, un contour, un chevron ou une icône.
+
 ## Le chiffre en tête disait autre chose que ce qu'on lisait
 
 Le bandeau affichait « Laba perjalanan Rp 7.093.336 ». Deux défauts, dont un
