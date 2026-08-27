@@ -1,0 +1,130 @@
+/* =========================================================================
+   INDONÉSIEN — langue par défaut
+   Termes réels du métier, pas une traduction littérale de l'anglais.
+   ========================================================================= */
+export default {
+  app: { name: 'Manajemen Angkutan', tagline: 'Pekanbaru — Medan' },
+
+  nav: { home: 'Beranda', trips: 'Perjalanan', tracking: 'Pelacakan', data: 'Data',
+         task: 'Tugas', costs: 'Biaya', location: 'Lokasi' },
+
+  role: { admin: 'Admin / Pemilik', driver: 'Sopir',
+          adminHint: 'Pesanan, tagihan, laba, data induk',
+          driverHint: 'Status, biaya jalan, kirim lokasi' },
+
+  login: { title: 'Masuk', sub: 'Gunakan nomor WhatsApp yang terdaftar.',
+           phone: 'Nomor WhatsApp', code: 'Kode masuk',
+           resend: 'Kirim ulang kode dalam', as: 'Masuk sebagai',
+           submit: 'Masuk', help: 'Belum punya akses? Hubungi pemilik armada.' },
+
+  home: { greetMorning: 'Selamat pagi', greetDay: 'Selamat siang',
+          greetAfternoon: 'Selamat sore', greetEvening: 'Selamat malam',
+          profit: 'Laba perjalanan', opex: 'Biaya operasional bulan ini',
+          tripsCount: '{n} perjalanan', running: '{n} sedang berjalan',
+          shortcuts: 'Menu', current: 'Perjalanan berjalan',
+          lastPos: 'Posisi terakhir', noTrip: 'Tidak ada perjalanan berjalan' },
+
+  menu: { newOrder: 'Pesanan Baru', trips: 'Perjalanan', costs: 'Biaya Jalan',
+          tracking: 'Pelacakan', invoices: 'Tagihan', fleet: 'Armada',
+          drivers: 'Sopir', customers: 'Pelanggan' },
+
+  status: { menunggu_muat: 'Menunggu muat', menuju_muat: 'Menuju lokasi muat',
+            proses_muat: 'Proses muat', berangkat: 'Perjalanan berangkat',
+            tiba_bongkar: 'Tiba di lokasi bongkar', cari_muatan_balik: 'Cari muatan balik',
+            pulang: 'Perjalanan pulang', selesai: 'Selesai' },
+
+  order: { title: 'Pesanan Baru', step: 'Langkah {a} dari {b}',
+           s1: 'Data muatan', s2: 'Tarif & pembayaran', s3: 'Jadwal & sopir',
+           suratJalan: 'No. Surat Jalan pelanggan', customer: 'Pelanggan',
+           cargo: 'Jenis muatan', tonnage: 'Tonase', ton: 'ton',
+           route: 'Rute', rate: 'Tarif', rateHint: 'Tarif standar pelanggan ini',
+           dp: 'DP diterima', dpOther: 'Lain', remaining: 'Sisa tagihan',
+           dueIn: 'Jatuh tempo {n} hari setelah bongkar',
+           dueCash: 'Dibayar tunai saat bongkar',
+           driver: 'Sopir', truck: 'Truk', depart: 'Tanggal berangkat',
+           afterCreate: 'Setelah dibuat, pesanan berstatus Menunggu muat.',
+           next: 'Lanjut', back: 'Kembali', create: 'Buat Pesanan',
+           created: 'Pesanan dibuat', createdSub: 'Status: Menunggu muat',
+           loadAt: 'Muat', unloadAt: 'Bongkar' },
+
+  costs: { title: 'Biaya Jalan', total: 'Total biaya perjalanan',
+           entries: '{n} catatan', proofs: '{n} bukti', noProof: 'Tanpa bukti',
+           add: 'Tambah Biaya', kind: 'Jenis biaya', amount: 'Jumlah',
+           litres: 'Liter', pricePerLitre: 'Harga per liter', note: 'Catatan',
+           photo: 'Foto bukti', takePhoto: 'Ambil Foto', save: 'Simpan',
+           viewProof: 'Lihat bukti',
+           kinds: { uang_jalan: 'Uang jalan', solar: 'Solar', tol: 'Tol',
+                    bongkar_muat: 'Bongkar muat', tak_terduga: 'Tak terduga' },
+           fuels: { Biosolar: 'Biosolar', Dexlite: 'Dexlite' } },
+
+  trip: { title: 'Status Perjalanan', current: 'Status saat ini',
+          updated: 'Diperbarui', by: 'oleh', change: 'Ubah Status',
+          pick: 'Pilih status', history: 'Riwayat', pending: 'Belum',
+          cancel: 'Batal', confirm: 'Ya, ubah', next: 'Berikutnya',
+          list: 'Perjalanan', running: 'Berjalan', done: 'Selesai',
+          emptyReturn: 'Pulang kosong — tidak ada muatan balik',
+          backhaulBooked: 'Muatan balik sudah dipesan' },
+
+  track: { title: 'Pelacakan', gps: 'GPS Tracker', manual: 'Lapor WhatsApp',
+           engine: 'Mesin', engineOn: 'Hidup', engineOff: 'Mati',
+           speed: 'Kecepatan', kmh: 'km/jam', heading: 'Arah',
+           fuel: 'Solar', progress: 'Jarak tempuh', of: 'dari',
+           lastUpdate: 'Diperbarui', device: 'Perangkat',
+           noGps: 'Truk ini tanpa GPS tracker. Sopir mengirim lokasi lewat WhatsApp di setiap titik, admin mencatat manual.',
+           askLocation: 'Minta lokasi ke {name}', reports: 'Laporan lokasi',
+           recordManual: 'Catat posisi manual', point: 'Titik',
+           time: 'Waktu', date: 'Tanggal', savePos: 'Simpan Posisi',
+           enteredBy: 'Dicatat oleh', fromWa: 'dari WhatsApp',
+           sendLocation: 'Kirim Lokasi Saya', passed: 'Sudah lewat' },
+
+  dash: { title: 'Laba & Tagihan', tabProfit: 'Laba', tabInvoice: 'Tagihan',
+          perTrip: 'Laba per perjalanan', revenue: 'Pendapatan', cost: 'Biaya',
+          profit: 'Laba', loss: 'Rugi', projected: 'Proyeksi laba',
+          breakdown: 'Rincian biaya', formula:
+            'Laba = (tarif berangkat + tarif muatan balik) − (sewa truk + solar + tol + sopir)',
+          unpaid: 'Tagihan belum dibayar', overdue: 'Terlambat {n} hari',
+          dueIn: '{n} hari lagi', dueToday: 'Jatuh tempo hari ini',
+          paid: 'Lunas', paidCash: 'Lunas tunai', due: 'Jatuh tempo',
+          issued: 'Terbit', remind: 'Ingatkan via WhatsApp',
+          alertOverdue: '{n} tagihan lewat jatuh tempo' },
+
+  fleet: { title: 'Armada', rentedFrom: 'Disewa dari', perMonth: 'per bulan',
+           stnk: 'STNK', kir: 'KIR', validUntil: 'Berlaku s/d',
+           daysLeft: '{n} hari lagi', expired: 'Sudah habis',
+           kirWarning: 'KIR habis dalam {n} hari. Jadwalkan uji berkala.',
+           bodyType: 'Karoseri', wingbox: 'Wingbox (bak tertutup)',
+           bak: 'Bak terbuka', onTrip: 'Sedang jalan', ready: 'Siap' },
+
+  driver: { title: 'Sopir', available: 'Tersedia', onTrip: 'Sedang jalan',
+            years: '{n} tahun', licence: 'SIM', nik: 'NIK',
+            chat: 'Chat WhatsApp', ktp: 'Kartu Tanda Penduduk',
+            lastTrip: 'Perjalanan terakhir', call: 'Telepon' },
+
+  customer: { title: 'Pelanggan', contact: 'Kontak', load: 'Alamat muat',
+              unload: 'Alamat bongkar', terms: 'Termin pembayaran',
+              days: '{n} hari', cash: 'Tunai', rate: 'Tarif disepakati',
+              trips: '{n} perjalanan' },
+
+  ktp: { province: 'PROVINSI RIAU', city: 'KOTA PEKANBARU',
+         title: 'NIK', name: 'Nama', birth: 'Tempat/Tgl Lahir',
+         sex: 'Jenis Kelamin', male: 'LAKI-LAKI', blood: 'Gol. Darah',
+         address: 'Alamat', rtrw: 'RT/RW', village: 'Kel/Desa',
+         district: 'Kecamatan', religion: 'Agama', marital: 'Status Perkawinan',
+         job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
+         wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
+
+  common: { back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
+            today: 'Hari ini', yesterday: 'Kemarin', more: 'Selengkapnya',
+            seeAll: 'Lihat semua', open: 'Lihat', wib: 'WIB', rp: 'Rp',
+            km: 'km', l: 'L', yes: 'Ya', no: 'Tidak', of: 'dari' },
+
+  costKeys: { sewaTruk: 'Sewa truk (1/3 bulan)', solar: 'Solar', tol: 'Tol',
+              sopir: 'Sopir (uang jalan + gaji)', bongkarMuat: 'Bongkar muat',
+              pungli: 'Pungutan di jalan', perawatan: 'Perawatan, ban, oli',
+              administrasi: 'Administrasi, KIR, parkir', cadangan: 'Cadangan tak terduga' },
+
+  months: ['Januari','Februari','Maret','April','Mei','Juni',
+           'Juli','Agustus','September','Oktober','November','Desember'],
+  monthsShort: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
+  days: ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'],
+}
