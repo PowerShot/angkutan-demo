@@ -20,9 +20,11 @@ export default {
 
   home: { greetMorning: 'Good morning', greetDay: 'Good afternoon',
           greetAfternoon: 'Good afternoon', greetEvening: 'Good evening',
-          profit: 'Trip margin', opex: 'Operating costs this month',
+          profit: 'Margin, completed trips', opex: 'Operating costs this month',
           tripsCount: '{n} trips', running: '{n} in progress',
           opexScope: '{plates} only',
+          projection: 'projected', calcDetail: 'How this is calculated',
+          latest: '{n} days · {name}',
           state: 'Operational status', rolling: '{a} of {b} rolling',
           allRolling: 'All moving', idle: '{n} idle',
           free: '{n} available', allBusy: 'All drivers on the road',
@@ -105,6 +107,9 @@ export default {
           unpaid: 'Unpaid invoices', overdue: '{n} days late',
           dueIn: 'in {n} days', dueToday: 'Due today',
           paid: 'Paid', paidCash: 'Paid in cash', due: 'Due',
+          opexTitle: 'Operating costs this month',
+          deducted: 'Already deducted', notDeducted: 'Not deducted',
+          opexNote: 'Truck rental, diesel, tolls and driver are already deducted from the margin above. The other lines are not.',
           issued: 'Issued', remind: 'Remind via WhatsApp',
           alertOverdue: '{n} invoice past due' },
 

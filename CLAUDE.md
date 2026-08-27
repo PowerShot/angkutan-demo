@@ -42,6 +42,12 @@ des défauts qu'il a fallu corriger.**
   largeur Android d'entrée de gamme. Vérifier aussi 390 × 844 et qu'un écran
   large ne casse rien — sans concevoir de version dédiée.
 - Le sélecteur **ID / EN** est accessible depuis l'en-tête de chaque écran.
+- **Un chiffre annoncé comme un gain doit être un gain acquis.** Ne jamais
+  fondre du prévisionnel dans un montant en tête : la projection est une
+  ligne distincte. Et ne jamais poser côte à côte une marge et des charges
+  dont une partie est déjà déduite — le lecteur croit à un double décompte.
+- **Un signal ne s'affiche qu'une fois.** Un bandeau d'alerte qui répète une
+  ligne du bloc d'état est du bruit : enrichir la ligne plutôt que doubler.
 
 ## Données et langue
 

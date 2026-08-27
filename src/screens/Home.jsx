@@ -29,11 +29,13 @@ export default function Home() {
 
   const running = s.activeTrips()
   const overdue = s.overdueInvoices()
-  const profit = s.monthMargin()
   const monthName = dict.months[Number(NOW.slice(5, 7)) - 1]
-  // périmètre des charges : seuls les camions dont le coût mensuel est connu
-  const opexTrucks = s.D.trucks.filter((t) => t.monthlyOperating != null)
-  const opex = opexTrucks.reduce((a, t) => a + t.monthlyOperating, 0)
+
+  /* Le montant en tête ne mélange plus réalisé et prévisionnel : seuls les
+     trajets terminés comptent, la projection est affichée à côté. */
+  const done = s.trips.filter((t) => t.status === 'selesai')
+  const earned = done.reduce((a, t) => a + s.margin(t).profit, 0)
+  const projected = running.reduce((a, t) => a + s.margin(t).profit, 0)
 
   return (
     <>
@@ -48,29 +50,31 @@ export default function Home() {
 
         {/* -- synthèse du mois -- */}
         <Rise i={1}>
-          <div className="hero">
+          <div className="hero" style={{ padding: '14px 16px 13px' }}>
             <div className="k-on">{t('home.profit')} — {monthName} {NOW.slice(0, 4)}</div>
-            <div className="amount text-[30px] mt-1.5">{rp(profit)}</div>
+            <div className="amount text-[30px] mt-1.5">{rp(earned)}</div>
             <div className="flex flex-wrap gap-1.5 mt-2.5">
-              <span className="pill pill-on">{t('home.tripsCount', { n: s.trips.length })}</span>
+              <span className="pill pill-on">{t('home.done', { n: done.length })}</span>
               <span className="pill pill-on">
                 <i className="bead bead-live" />{t('home.running', { n: running.length })}
               </span>
-              <span className="pill pill-on">
-                {t('home.done', { n: s.trips.length - running.length })}
-              </span>
             </div>
+
+            {/* La projection des trajets en cours est distincte, jamais fondue
+                dans le montant en tête. */}
             <div className="hero-sep" style={{ height: 1, background: 'rgb(255 255 255 / .16)',
-                                               margin: '13px 0 10px' }} />
-            <div className="flex items-baseline justify-between text-[12.5px]" style={{ color: '#C7DEE4' }}>
-              <span>{t('home.opex')}</span>
-              <span className="tabular-nums font-bold">{rp(opex)}</span>
+                                               margin: '11px 0 8px' }} />
+            <div className="flex items-baseline justify-between text-[12.5px]"
+                 style={{ color: '#C7DEE4' }}>
+              <span className="capitalize">{t('home.projection')}</span>
+              <span className="tabular-nums font-bold">{rp(projected, { sign: projected > 0 })}</span>
             </div>
-            {opexTrucks.length < s.D.trucks.length && (
-              <div className="text-[10.5px] mt-1" style={{ color: '#7FA9B5' }}>
-                {t('home.opexScope', { plates: opexTrucks.map((t) => t.plate).join(', ') })}
-              </div>
-            )}
+            <button onClick={() => nav('/laba')}
+                    className="flex items-center gap-1 text-[11.5px] font-bold mt-2"
+                    style={{ color: '#9FC6D0' }}>
+              {t('home.calcDetail')}
+              <Icon n="chevR" className="w-[13px] h-[13px]" />
+            </button>
           </div>
         </Rise>
 
@@ -81,22 +85,8 @@ export default function Home() {
           <div className="card-flush mt-2"><StateRows s={s} t={t} dict={dict} nav={nav} /></div>
         </Rise>
 
-        {/* -- alerte de retard de paiement -- */}
-        {overdue.length > 0 && (
-          <Rise i={3}>
-            <Banner
-              tone="dang"
-              title={t('dash.alertOverdue', { n: overdue.length })}
-              sub={`${s.customer(overdue[0].customerId).name} · ${rp(overdue[0].amount)} · ${
-                t('dash.overdue', { n: daysBetween(overdue[0].due, NOW.slice(0, 10)) })}`}
-              action={t('common.open')}
-              onAction={() => nav('/laba')}
-            />
-          </Rise>
-        )}
-
         {/* -- raccourcis -- */}
-        <Rise i={4}>
+        <Rise i={3}>
           <SectionTitle>{t('home.shortcuts')}</SectionTitle>
           <div className="grid grid-cols-4 gap-x-1.5 gap-y-3 mt-2.5">
             {MENU(running[0]?.id).map((m) => (
@@ -115,16 +105,16 @@ export default function Home() {
         </Rise>
 
         {/* -- trajet en cours -- */}
-        <Rise i={5}>
+        <Rise i={4}>
           <SectionTitle action={t('common.seeAll')} onAction={() => nav('/perjalanan')}>
             {t('home.current')}
           </SectionTitle>
         </Rise>
 
         {running.length ? running.map((trip, i) => (
-          <Rise i={6 + i} key={trip.id}><RunningCard s={s} dict={dict} trip={trip} /></Rise>
+          <Rise i={5 + i} key={trip.id}><RunningCard s={s} dict={dict} trip={trip} /></Rise>
         )) : (
-          <Rise i={6}><div className="card text-center sub py-6">{t('home.noTrip')}</div></Rise>
+          <Rise i={5}><div className="card text-center sub py-6">{t('home.noTrip')}</div></Rise>
         )}
       </Screen>
     </>
@@ -212,6 +202,8 @@ function StateRows({ s, t, dict, nav }) {
   // factures
   const open = s.openInvoices()
   const late = s.overdueInvoices()
+  // la ligne nomme le retard le plus ancien plutôt que de les compter
+  const worst = late.slice().sort((a, b) => (a.due < b.due ? -1 : 1))[0]
 
   /* Ordre de lecture : rouge d'abord, puis ambre, puis le reste. Le tri est
      stable, donc en régime normal les lignes gardent leur place habituelle. */
@@ -251,7 +243,10 @@ function StateRows({ s, t, dict, nav }) {
 
     { key: 'invoices', tone: late.length ? 'dang' : 'mut', node: (
       <Row icon="cash" title={t('dash.tabInvoice')}
-           sub={late.length ? t('home.late', { n: late.length }) : t('home.onTime')}
+           sub={late.length
+             ? t('home.latest', { name: s.customer(worst.customerId).name,
+                                  n: -daysBetween(today, worst.due) })
+             : t('home.onTime')}
            right={<Pill tone={late.length ? 'dang' : 'mut'} dot={late.length > 0}>
              {t('home.unpaid', { n: open.length })}
            </Pill>}

@@ -5,7 +5,7 @@ import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Seg, Pill, Banner, Btn, SectionTitle } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, dateShort, dateDay, daysBetween } from '../lib/format.js'
-import { NOW } from '../data/demoData.js'
+import { NOW, costs, trucks } from '../data/demoData.js'
 
 export default function Dashboard() {
   const { t } = useT()
@@ -117,7 +117,63 @@ function ProfitTab() {
           </Rise>
         )
       })}
+
+      <Rise i={9}><OpexCard t={t} /></Rise>
     </Screen>
+  )
+}
+
+/* =========================================================================
+   CHARGES DU MOIS
+   Quatre des neuf postes sont déjà retirés par la formule de marge. Les
+   afficher sans le dire laissait croire à un double décompte : ici ils sont
+   séparés en deux groupes explicites.
+   ========================================================================= */
+const DEDUCTED = new Set(['sewaTruk', 'solar', 'tol', 'sopir'])
+
+function OpexCard({ t }) {
+  const inside = costs.monthly.filter((c) => DEDUCTED.has(c.key))
+  const outside = costs.monthly.filter((c) => !DEDUCTED.has(c.key))
+  const sum = (a) => a.reduce((x, c) => x + c.amount, 0)
+  const scope = trucks.filter((tk) => tk.monthlyOperating != null)
+
+  const Group = ({ title, rows, total, tone }) => (
+    <>
+      <div className="flex items-baseline justify-between mt-3.5">
+        <span className="k" style={{ color: tone }}>{title}</span>
+        <span className="text-[13px] font-extrabold tabular-nums" style={{ color: tone }}>
+          {rp(total)}
+        </span>
+      </div>
+      <div className="mt-1.5 flex flex-col gap-1">
+        {rows.map((c) => (
+          <div key={c.key} className="flex justify-between text-[12.5px]">
+            <span style={{ color: 'var(--color-mut)' }}>{t(`costKeys.${c.key}`)}</span>
+            <span className="tabular-nums">{rp(c.amount)}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+
+  return (
+    <div className="card">
+      <div className="k">{t('dash.opexTitle')}</div>
+      <div className="amount text-[22px] mt-1">{rp(costs.monthlyTotal)}</div>
+      {scope.length < trucks.length && (
+        <div className="subtle mt-0.5">
+          {t('home.opexScope', { plates: scope.map((tk) => tk.plate).join(', ') })}
+        </div>
+      )}
+      <p className="text-[11.5px] mt-2.5 leading-snug" style={{ color: 'var(--color-mut)' }}>
+        {t('dash.opexNote')}
+      </p>
+
+      <Group title={t('dash.deducted')} rows={inside} total={sum(inside)}
+             tone="var(--color-ok)" />
+      <Group title={t('dash.notDeducted')} rows={outside} total={sum(outside)}
+             tone="var(--color-warn)" />
+    </div>
   )
 }
 

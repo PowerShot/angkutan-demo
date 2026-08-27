@@ -19,9 +19,11 @@ export default {
 
   home: { greetMorning: 'Selamat pagi', greetDay: 'Selamat siang',
           greetAfternoon: 'Selamat sore', greetEvening: 'Selamat malam',
-          profit: 'Laba perjalanan', opex: 'Biaya operasional bulan ini',
+          profit: 'Laba perjalanan selesai', opex: 'Biaya operasional bulan ini',
           tripsCount: '{n} perjalanan', running: '{n} sedang berjalan',
           opexScope: '{plates} saja',
+          projection: 'proyeksi', calcDetail: 'Rincian perhitungan',
+          latest: '{n} hari · {name}',
           state: 'Status operasional', rolling: '{a} dari {b} jalan',
           allRolling: 'Semua bergerak', idle: '{n} menganggur',
           free: '{n} tersedia', allBusy: 'Semua sopir jalan',
@@ -104,6 +106,9 @@ export default {
           unpaid: 'Tagihan belum dibayar', overdue: 'Terlambat {n} hari',
           dueIn: '{n} hari lagi', dueToday: 'Jatuh tempo hari ini',
           paid: 'Lunas', paidCash: 'Lunas tunai', due: 'Jatuh tempo',
+          opexTitle: 'Biaya operasional bulan ini',
+          deducted: 'Sudah dikurangi', notDeducted: 'Belum dikurangi',
+          opexNote: 'Sewa truk, solar, tol dan sopir sudah dikurangi dari laba di atas. Pos lainnya belum.',
           issued: 'Terbit', remind: 'Ingatkan via WhatsApp',
           alertOverdue: '{n} tagihan lewat jatuh tempo' },
 

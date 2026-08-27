@@ -75,6 +75,26 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Le chiffre en tête disait autre chose que ce qu'on lisait
+
+Le bandeau affichait « Laba perjalanan Rp 7.093.336 ». Deux défauts, dont un
+qui induisait franchement en erreur :
+
+- le montant **mélangeait 3.046.668 de marge réalisée et 4.046.668 de
+  prévisionnel** sur deux trajets encore en route, sans le dire ;
+- il était posé juste au-dessus de « Biaya operasional Rp 62.800.000 », alors
+  que **4 des 9 postes de ce total — sewa truk, solar, tol, sopir, soit
+  50.180.000 — sont déjà déduits** par la formule de marge. La lecture
+  naturelle « j'ai gagné 7 M et dépensé 62,8 M » était fausse.
+
+| Décision | Raison |
+|---|---|
+| Le montant en tête ne compte que les **trajets terminés** | Un chiffre annoncé comme un gain doit être un gain acquis. |
+| La **projection est une ligne distincte**, jamais fondue dans le total | Elle reste visible, mais on ne peut plus la confondre avec du réalisé. |
+| Les charges mensuelles **quittent l'accueil** pour l'écran Laba | Elles n'ont de sens qu'à côté de leur ventilation. |
+| Cette ventilation sépare **« Sudah dikurangi » (50.180.000)** de **« Belum dikurangi » (12.620.000)** | C'est la seule façon de rendre le rapport entre marge et charges lisible sans formation comptable. |
+| Le bandeau rouge de retard de paiement **est supprimé** | Il faisait doublon avec la ligne Tagihan du bloc d'état. Cette ligne nomme désormais le débiteur et son retard : « 16 hari · PT Anugrah Boga Nusantara ». |
+
 ## L'état de l'exploitation, d'un coup d'œil
 
 L'accueil répondait à « combien j'ai gagné » mais pas à « est-ce que tout
