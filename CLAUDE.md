@@ -53,6 +53,10 @@ des défauts qu'il a fallu corriger.**
 - **Un bouton d'action doit agir.** Cinq boutons WhatsApp étaient purement
   décoratifs : ils n'ouvraient rien. Un bouton qui ne fait rien coûte plus
   cher qu'un bouton absent.
+- **L'action principale d'un écran ne défile pas.** Elle vit dans une
+  `ActionBar` épinglée hors de la zone qui défile, au-dessus de la barre de
+  navigation. Un `mt-auto` sur un bouton le pousse en bas du **contenu**, pas
+  de l'écran : dès que la liste s'allonge, l'action disparaît sous le pli.
 - **Ce qui est cliquable doit se voir cliquable.** Fond plein, contour, ou
   chevron — jamais du texte centré en gris, qui se lit comme un intertitre.
   L'action secondaire prend un contour et une icône, plus petite que

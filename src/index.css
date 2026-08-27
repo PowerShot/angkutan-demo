@@ -416,3 +416,8 @@
 /* Le bouton principal du chauffeur porte la couleur de l'étape qu'il déclenche :
    la chaîne bouton → badge → frise se lit d'une seule traite. */
 .btn-st{background:var(--st)}
+
+/* Barre d'action épinglée sous le contenu défilant, au-dessus de la navigation. */
+.actionbar{flex:0 0 auto;padding:10px 14px 12px;background:var(--color-page);
+  box-shadow:0 -10px 18px -14px rgb(13 22 24 / .45)}
+.actionbar > * + *{margin-top:10px}

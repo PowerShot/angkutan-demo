@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
-import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
+import { TopBar, Screen, Rise, ActionBar } from '../components/Chrome.jsx'
 import { Btn, Sheet, Field, Input } from '../components/bits.jsx'
 import ReceiptSlip, { ReceiptThumb } from '../components/ReceiptSlip.jsx'
 import Icon from '../components/Icon.jsx'
@@ -76,10 +76,11 @@ export default function Costs() {
           </div>
         </Rise>
 
-        <Rise i={2} className="mt-auto pt-2">
-          <Btn icon="camera" onClick={() => setAdding(true)}>{t('costs.add')}</Btn>
-        </Rise>
       </Screen>
+
+      <ActionBar>
+        <Btn icon="camera" onClick={() => setAdding(true)}>{t('costs.add')}</Btn>
+      </ActionBar>
 
       {proof && (
         <Sheet title={t('costs.viewProof')} onClose={() => setProof(null)}>

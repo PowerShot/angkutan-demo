@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useAct } from '../store/index.jsx'
-import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
+import { TopBar, Screen, Rise, ActionBar } from '../components/Chrome.jsx'
 import { Btn, Field, Input, Select, Seg, Banner, NavButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, num, dateShort } from '../lib/format.js'
@@ -96,9 +96,8 @@ export default function OrderNew() {
                        onChange={(e) => setTonnage(e.target.value)} />
               </Field>
             </Rise>
-            <Rise i={5} className="mt-auto pt-3 flex flex-col gap-2.5">
+            <Rise i={5} className="pt-2">
               <Banner tone="pri" icon="clock" title={t('order.afterCreate')} />
-              <Btn icon="chevR" onClick={() => setStep(2)}>{t('order.next')}</Btn>
             </Rise>
           </>
         )}
@@ -159,12 +158,7 @@ export default function OrderNew() {
                 </div>
               </div>
             </Rise>
-            <Rise i={5} className="mt-auto pt-3 grid grid-cols-[auto_1fr] gap-2.5">
-              <Btn variant="btn-quiet" className="!w-auto px-5" onClick={() => setStep(1)}>
-                {t('order.back')}
-              </Btn>
-              <Btn icon="chevR" onClick={() => setStep(3)}>{t('order.next')}</Btn>
-            </Rise>
+
           </>
         )}
 
@@ -212,15 +206,27 @@ export default function OrderNew() {
                 </div>
               </Field>
             </Rise>
-            <Rise i={4} className="mt-auto pt-3 grid grid-cols-[auto_1fr] gap-2.5">
-              <Btn variant="btn-quiet" className="!w-auto px-5" onClick={() => setStep(2)}>
-                {t('order.back')}
-              </Btn>
-              <Btn icon="check" onClick={create}>{t('order.create')}</Btn>
-            </Rise>
+
           </>
         )}
       </Screen>
+
+      {/* Une seule barre, dont le contenu suit l'étape. */}
+      <ActionBar>
+        {step === 1 && (
+          <Btn icon="chevR" onClick={() => setStep(2)}>{t('order.next')}</Btn>
+        )}
+        {step > 1 && (
+          <div className="grid grid-cols-[auto_1fr] gap-2.5">
+            <Btn variant="btn-quiet" className="!w-auto px-5" onClick={() => setStep(step - 1)}>
+              {t('order.back')}
+            </Btn>
+            {step === 2
+              ? <Btn icon="chevR" onClick={() => setStep(3)}>{t('order.next')}</Btn>
+              : <Btn icon="check" onClick={create}>{t('order.create')}</Btn>}
+          </div>
+        )}
+      </ActionBar>
     </>
   )
 }

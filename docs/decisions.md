@@ -75,6 +75,25 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## L'action principale disparaissait sous le pli
+
+« Tambah Biaya » était placé en fin de contenu avec `mt-auto`. Ce n'est pas
+le bas de l'écran, c'est le bas du **contenu défilant** : avec six lignes de
+dépenses et leurs justificatifs, il fallait descendre 400 px pour atteindre
+l'action principale de l'écran.
+
+Le défaut était systémique — **six actions sur quatre écrans** : ajouter une
+dépense, avancer dans le formulaire de commande aux trois étapes, enregistrer
+une position manuelle, envoyer sa position côté chauffeur.
+
+Un composant `ActionBar` les épingle hors de la zone qui défile, au-dessus de
+la barre de navigation. Son fond reprend celui de la page et son ombre laisse
+voir le contenu passer dessous, pour ne pas empiler deux barres pleines.
+
+Mesuré en 360 × 640 sur l'écran des dépenses : en-tête et contenu 439 px,
+barre d'action 74 px, navigation 61 px. Les six actions sont atteignables
+sans défiler, alors que le contenu défile encore de 400 px.
+
 ## Deux modèles économiques coexistent, et leurs prix divergent
 
 Le cahier des charges initial décrivait un camion **loué au mois**

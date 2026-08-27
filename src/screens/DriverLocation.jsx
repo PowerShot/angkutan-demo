@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
-import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
+import { TopBar, Screen, Rise, ActionBar } from '../components/Chrome.jsx'
 import { Btn, Banner } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { timeWib, dateShort } from '../lib/format.js'
@@ -71,11 +71,13 @@ export default function DriverLocation() {
           </div>
         </Rise>
 
-        <Rise i={2} className="mt-auto pt-3 flex flex-col gap-2.5">
-          <Btn variant="btn-wa" icon="send" onClick={send}>{t('track.sendLocation')}</Btn>
-          <p className="text-center subtle">{t('track.fromWa')}</p>
-        </Rise>
+
       </Screen>
+
+      <ActionBar>
+        <Btn variant="btn-wa" icon="send" onClick={send}>{t('track.sendLocation')}</Btn>
+        <p className="text-center subtle">{t('track.fromWa')}</p>
+      </ActionBar>
     </>
   )
 }

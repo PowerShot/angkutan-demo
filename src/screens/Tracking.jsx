@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
-import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
+import { TopBar, Screen, Rise, ActionBar } from '../components/Chrome.jsx'
 import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet, NavButtons } from '../components/bits.jsx'
 import RouteMap from '../components/RouteMap.jsx'
 import Icon from '../components/Icon.jsx'
@@ -222,6 +222,7 @@ function ManualMode({ t, dict, trip, driver, reports, doneIds }) {
   const remaining = route.waypoints.filter((w) => !doneIds.includes(w.id))
 
   return (
+    <>
     <Screen>
       <Rise i={0}>
         <Banner tone="warn" icon="alert" title={t('track.noGps')} />
@@ -262,17 +263,18 @@ function ManualMode({ t, dict, trip, driver, reports, doneIds }) {
         </div>
       </Rise>
 
-      <Rise i={3} className="mt-auto pt-2">
-        <Btn variant="btn-ghost" icon="plus" onClick={() => setOpen(true)}>
-          {t('track.recordManual')}
-        </Btn>
-      </Rise>
-
       {open && (
         <ManualEntry t={t} dict={dict} trip={trip} remaining={remaining}
                      act={act} onClose={() => setOpen(false)} />
       )}
     </Screen>
+
+    <ActionBar>
+      <Btn variant="btn-ghost" icon="plus" onClick={() => setOpen(true)}>
+        {t('track.recordManual')}
+      </Btn>
+    </ActionBar>
+    </>
   )
 }
 

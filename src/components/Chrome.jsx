@@ -166,6 +166,15 @@ export function Screen({ children, className = '' }) {
   return <div className={`screen ${className}`}>{children}</div>
 }
 
+/* -- barre d'action épinglée ---------------------------------------------
+   Placée hors de la zone qui défile : l'action principale d'un écran reste
+   atteignable au pouce quel que soit le nombre de lignes au-dessus. Le fond
+   reprend celui de la page et l'ombre laisse voir le contenu passer dessous,
+   pour ne pas empiler deux barres pleines avec la navigation. */
+export function ActionBar({ children }) {
+  return <div className="actionbar">{children}</div>
+}
+
 export function Rise({ i = 0, children, className = '' }) {
   return <div className={`rise ${className}`} style={{ '--i': i }}>{children}</div>
 }
