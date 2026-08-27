@@ -54,6 +54,23 @@ permanence sous les tuiles. C'est de la vraie géographie — on y reconnaît la
 côte est de Sumatra, le détroit de Malacca et le lac Toba — et c'est
 juridiquement propre.
 
+## Ajout du second camion (demandé après coup)
+
+Le suivi de position ne montrait qu'un camion, sans moyen d'en changer. Trois
+verrous : `activeTrip()` renvoyait le premier trajet non terminé, l'écran en
+déduisait le camion sans jamais le choisir, et `telemetry` était un objet
+unique et non une liste.
+
+| Décision | Raison |
+|---|---|
+| Un second camion **inventé et balisé** | Impossible de démontrer un sélecteur avec un seul véhicule. Tous les blocs concernés sont encadrés par des commentaires `▼ … INVENTÉ ▼` et listés dans `docs/donnees.md`, pour être retirables d'un bloc. |
+| Un **troisième chauffeur** plutôt que de mettre Hendra en route | Le cahier des charges fixait Hendra comme « disponible ». Ajouter une entité laisse la donnée fournie intacte ; la modifier l'aurait écrasée. |
+| Carrosserie **plateau** pour le second camion | Exerce l'autre type de carrosserie du cahier des charges, jusque-là inutilisé. |
+| Statut **« Tiba di lokasi bongkar », moteur coupé** | Le sélecteur ne vaut que s'il montre deux situations réellement différentes : l'un roule à 62 km/h, l'autre est à quai à 0 km/h. |
+| Coût par trajet **dérivé du camion** | Les loyers diffèrent (25.000.000 et 22.000.000). Le Fuso retombe exactement sur les 16.726.666 fournis. |
+| Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
+| Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
+
 ## Bugs corrigés en cours de route
 
 - Les resets CSS (`button{padding:0}`) étaient **hors couche Tailwind** :
@@ -68,3 +85,9 @@ juridiquement propre.
 - Les repères de carte étaient des `<span>` en `display:inline` : largeur et
   rayon ignorés, ils sortaient en carrés.
 - `Rp` se détachait de son montant en fin de ligne. Espace insécable.
+- Les calques internes de Leaflet montent jusqu'à z-index 800 : la feuille
+  basse de sélection du véhicule s'ouvrait **derrière la carte**. Corrigé en
+  isolant le contexte d'empilement de la carte (`isolation: isolate`) plutôt
+  qu'en surenchérissant sur les z-index de l'application.
+- La carrosserie était écrite en dur sur l'écran Armada : le second camion,
+  un plateau, s'affichait en « Wingbox ».

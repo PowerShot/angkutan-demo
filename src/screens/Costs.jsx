@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Btn, Sheet, Field, Input, Pill } from '../components/bits.jsx'
+import { Btn, Sheet, Field, Input } from '../components/bits.jsx'
 import ReceiptSlip, { ReceiptThumb } from '../components/ReceiptSlip.jsx'
 import Icon from '../components/Icon.jsx'
-import { rp, num, dec, stamp, dateShort, timeWib } from '../lib/format.js'
+import { rp, dec, stamp, dateShort, timeWib } from '../lib/format.js'
 import { NOW } from '../data/demoData.js'
 
 const KIND_ICON = { uang_jalan: 'cash', solar: 'fuel', tol: 'gate',
@@ -21,7 +21,7 @@ export default function Costs() {
   const [proof, setProof] = useState(null)
   const [adding, setAdding] = useState(false)
 
-  const trip = id ? s.trip(id) : s.activeTrip()
+  const trip = id ? s.trip(id) : s.activeTripOf(s.session?.driverId)
   if (!trip) return null
   const list = s.expensesOf(trip.id)
   const total = s.expenseTotal(trip.id)

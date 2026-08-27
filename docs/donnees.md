@@ -40,6 +40,45 @@ Le formatage indonésien — `Rp 13.000.000`, `26 Agustus 2026`, `21.40 WIB`,
 | `positions` | positions reçues par WhatsApp |
 | `telemetry` | relevé du boîtier GPS du trajet en cours |
 
+## Le second camion est inventé
+
+La flotte compte **deux camions** dans la démo, alors que ton cahier des
+charges n'en décrivait qu'un. Le second sert uniquement à démontrer le
+sélecteur de véhicule de l'écran de suivi.
+
+Tout ce qui le concerne est encadré dans `demoData.js` par des commentaires
+`▼ … INVENTÉ ▼`. Pour revenir à une flotte d'un seul camion, supprimer :
+
+| Bloc | Repère dans `demoData.js` |
+|---|---|
+| Camion `BM 9317 UY` | `▼ CAMION INVENTÉ ▼` |
+| Chauffeur `D3` Anwar Siregar | `▼ CHAUFFEUR INVENTÉ ▼` |
+| Trajet `PJL-2508-04` | `▼ TRAJET INVENTÉ ▼` |
+| Ses 6 dépenses `E17` à `E22` | `▼ DÉPENSES INVENTÉES ▼` |
+| Ses 7 positions | `▼ POSITIONS INVENTÉES ▼` |
+| Son relevé GPS | entrée `'PJL-2508-04'` de `telemetry` |
+
+Le sélecteur de véhicule disparaît alors automatiquement : il ne s'affiche
+que lorsque plus d'un camion est en route.
+
+**Ce que l'ajout déplace à l'écran.** Les chiffres du Fuso restent
+strictement inchangés — ses trois trajets gardent leurs marges de
++6.773.334, −3.726.666 et +6.773.334, et son coût par trajet reste
+16.726.666. En revanche :
+
+- l'accueil annonce **4 perjalanan · 2 sedang berjalan** au lieu de 3 et 1 ;
+- la marge du mois passe de **9.820.002** à **7.093.336**, le nouveau trajet
+  étant projeté à −2.726.666 faute de fret retour ;
+- la ligne des charges mensuelles porte la mention **« BM 8241 UZ saja »**,
+  parce que tes Rp 62.800.000 ne couvrent que le premier camion. Le second
+  a `monthlyOperating: null` : son coût mensuel n'est pas modélisé, et la
+  mention de périmètre disparaîtra le jour où tu le renseigneras.
+
+Le loyer étant différent d'un camion à l'autre, le coût par trajet est
+maintenant **dérivé du véhicule** (`tripCostParts`) au lieu d'être figé.
+Pour le Fuso loué 25.000.000, le calcul retombe exactement sur les
+16.726.666 du cahier des charges.
+
 ## Points à vérifier en priorité
 
 Ces valeurs sont des **déductions** faites faute d'information, pas des

@@ -88,7 +88,7 @@ export default function TripDetail() {
             <Row icon="list" title={t('trip.title')} sub={t(`status.${trip.status}`)}
                  onClick={() => nav(`/perjalanan/${trip.id}/status`)} />
             {running && (
-              <Row icon="pin" title={t('track.title')} sub={stamp(s.telemetry.at, dict)}
+              <Row icon="pin" title={t('track.title')} sub={s.telemetryOf(trip.id) ? stamp(s.telemetryOf(trip.id).at, dict) : '—'}
                    onClick={() => nav('/pelacakan')} />
             )}
           </div>

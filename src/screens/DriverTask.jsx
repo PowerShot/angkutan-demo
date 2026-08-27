@@ -3,22 +3,22 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusPill, Btn, Sheet, Pill, Row } from '../components/bits.jsx'
-import Icon from '../components/Icon.jsx'
-import { rp, stamp, timeWib } from '../lib/format.js'
-import { TRIP_STATUSES, NOW, route } from '../data/demoData.js'
+import { Btn, Sheet, Pill, Row } from '../components/bits.jsx'
+import { rp, timeWib } from '../lib/format.js'
+import { TRIP_STATUSES, NOW } from '../data/demoData.js'
 
 /* Écran d'accueil du chauffeur : une seule mission, une seule action
    principale, tout le reste en dessous. */
 export default function DriverTask() {
-  const { t, dict } = useT()
+  const { t } = useT()
   const s = useStore()
   const act = useAct()
   const nav = useNavigate()
   const [open, setOpen] = useState(false)
 
-  const trip = s.activeTrip()
+  const trip = s.activeTripOf(s.session?.driverId)
   if (!trip) return null
+  const tm = s.telemetryOf(trip.id)
   const truck = s.truck(trip.truckId)
   const out = s.customer(trip.outbound.customerId)
   const idx = TRIP_STATUSES.indexOf(trip.status)
@@ -74,7 +74,7 @@ export default function DriverTask() {
                  sub={t('costs.entries', { n: s.expensesOf(trip.id).length })}
                  value={rp(spent)} onClick={() => nav('/sopir/biaya')} />
             <Row icon="pin" title={t('track.sendLocation')}
-                 sub={`${s.telemetry.place.split(',')[0]} · ${timeWib(s.telemetry.at)}`}
+                 sub={tm ? `${tm.place.split(',')[0]} · ${timeWib(tm.at)}` : '—'}
                  onClick={() => nav('/sopir/lokasi')} />
           </div>
         </Rise>

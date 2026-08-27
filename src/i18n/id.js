@@ -21,6 +21,7 @@ export default {
           greetAfternoon: 'Selamat sore', greetEvening: 'Selamat malam',
           profit: 'Laba perjalanan', opex: 'Biaya operasional bulan ini',
           tripsCount: '{n} perjalanan', running: '{n} sedang berjalan',
+          opexScope: '{plates} saja',
           shortcuts: 'Menu', current: 'Perjalanan berjalan',
           lastPos: 'Posisi terakhir', noTrip: 'Tidak ada perjalanan berjalan' },
 
@@ -66,6 +67,9 @@ export default {
           backhaulBooked: 'Muatan balik sudah dipesan' },
 
   track: { title: 'Pelacakan', gps: 'GPS Tracker', manual: 'Lapor WhatsApp',
+           pickVehicle: 'Pilih kendaraan',
+           vehicle: 'Kendaraan',
+           headings: { utara: 'Utara', selatan: 'Selatan', diam: 'Diam' },
            engine: 'Mesin', engineOn: 'Hidup', engineOff: 'Mati',
            speed: 'Kecepatan', kmh: 'km/jam', heading: 'Arah',
            fuel: 'Solar', progress: 'Jarak tempuh', of: 'dari',
@@ -114,7 +118,7 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
+  common: { change: 'Ganti', back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
             today: 'Hari ini', yesterday: 'Kemarin', more: 'Selengkapnya',
             seeAll: 'Lihat semua', open: 'Lihat', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Ya', no: 'Tidak', of: 'dari' },

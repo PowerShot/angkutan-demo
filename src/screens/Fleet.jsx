@@ -48,7 +48,9 @@ export default function Fleet() {
                 <div className="flex items-center gap-2 mt-3 pt-3 border-t"
                      style={{ borderColor: 'var(--color-line-2)' }}>
                   <Icon n="box" className="w-[15px] h-[15px]" style={{ color: 'var(--color-pri)' }} />
-                  <span className="text-[12.5px] font-semibold">{t('fleet.wingbox')}</span>
+                  <span className="text-[12.5px] font-semibold">
+                    {t(tr.bodyType === 'bak' ? 'fleet.bak' : 'fleet.wingbox')}
+                  </span>
                 </div>
 
                 <div className="mt-2">{doc(t('fleet.stnk'), tr.stnkExpiry, stnk)}</div>

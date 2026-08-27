@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Btn, Banner, Pill } from '../components/bits.jsx'
+import { Btn, Banner } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { timeWib, dateShort } from '../lib/format.js'
 import { route, NOW } from '../data/demoData.js'
@@ -13,7 +13,8 @@ export default function DriverLocation() {
   const { t, dict } = useT()
   const s = useStore()
   const act = useAct()
-  const trip = s.activeTrip()
+  const trip = s.activeTripOf(s.session?.driverId)
+  const tm = s.telemetryOf(trip.id)
   const reports = s.positionsOf(trip.id)
   const doneIds = reports.map((r) => r.waypointId)
   const firstOpen = route.waypoints.find((w) => !doneIds.includes(w.id))
@@ -32,8 +33,8 @@ export default function DriverLocation() {
       <Screen>
         <Rise i={0}>
           <Banner tone="pri" icon="pin"
-                  title={`${t('track.lastUpdate')} ${s.telemetry.place.split(',')[0]}`}
-                  sub={`${dateShort(s.telemetry.at, dict)}, ${timeWib(s.telemetry.at)}`} />
+                  title={`${t('track.lastUpdate')} ${tm ? tm.place.split(',')[0] : '—'}`}
+                  sub={tm ? `${dateShort(tm.at, dict)}, ${timeWib(tm.at)}` : '—'} />
         </Rise>
 
         <Rise i={1}>

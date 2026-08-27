@@ -5,42 +5,109 @@ import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet } from '../components/bits.jsx'
 import RouteMap from '../components/RouteMap.jsx'
 import Icon from '../components/Icon.jsx'
-import { stamp, timeWib, dateShort, ago, dec } from '../lib/format.js'
+import { timeWib, dateShort, ago } from '../lib/format.js'
 import { route, NOW, business } from '../data/demoData.js'
 
 export default function Tracking() {
   const { t, dict, lang } = useT()
   const s = useStore()
   const [mode, setMode] = useState('gps')
+  const [picking, setPicking] = useState(false)
 
-  const trip = s.activeTrip()
+  const running = s.activeTrips()
+  const [tripId, setTripId] = useState(() => running[0]?.id)
+  const trip = s.trip(tripId) ?? running[0]
   if (!trip) return null
+
   const driver = s.driver(trip.driverId)
   const truck = s.truck(trip.truckId)
+  const tm = s.telemetryOf(trip.id)
   const reports = s.positionsOf(trip.id)
   const doneIds = reports.map((r) => r.waypointId)
-  const pct = Math.round((s.telemetry.odometerKm / route.distanceKm) * 100)
 
   return (
     <>
-      <TopBar title={t('track.title')} sub={`${trip.id} · ${driver.name}`} />
-      <div className="px-3.5 pt-3 pb-1 shrink-0" style={{ background: 'var(--color-page)' }}>
+      <TopBar title={t('track.title')} sub={trip.id} />
+
+      {/* Sélecteur de véhicule : bouton visible, jamais un menu caché.
+          Il n'apparaît que si la flotte compte plus d'un camion en route. */}
+      <div className="px-3.5 pt-3 shrink-0 flex flex-col gap-2.5"
+           style={{ background: 'var(--color-page)' }}>
+        {running.length > 1 ? (
+          <button className="card w-full text-left flex items-center gap-3"
+                  onClick={() => setPicking(true)}>
+            <span className="glyph"><Icon n="truck" /></span>
+            <span className="flex-1 min-w-0">
+              <span className="flex items-center gap-2">
+                <span className="plate text-[14.5px] font-bold">{truck.plate}</span>
+                <span className="w-[7px] h-[7px] rounded-full shrink-0"
+                      style={{ background: tm?.engine === 'hidup'
+                        ? 'var(--color-ok)' : 'var(--color-mut-2)' }}
+                      title={t('track.engine')} />
+              </span>
+              <span className="block text-[11.5px] mt-0.5 leading-snug"
+                    style={{ color: 'var(--color-mut)' }}>
+                {driver.name} · {t(`status.${trip.status}`)}
+              </span>
+            </span>
+            <span className="text-[11.5px] font-extrabold shrink-0"
+                  style={{ color: 'var(--color-pri)' }}>{t('common.change')}</span>
+            <Icon n="chevD" className="w-[17px] h-[17px] shrink-0"
+                  style={{ color: 'var(--color-mut-2)' }} />
+          </button>
+        ) : (
+          <div className="text-[12.5px] px-0.5" style={{ color: 'var(--color-mut)' }}>
+            <span className="plate font-bold" style={{ color: 'var(--color-ink)' }}>{truck.plate}</span>
+            {' · '}{driver.name}
+          </div>
+        )}
+
         <Seg value={mode} onChange={setMode}
              options={[{ value: 'gps', label: t('track.gps') },
                        { value: 'manual', label: t('track.manual') }]} />
       </div>
 
       {mode === 'gps'
-        ? <GpsMode s={s} t={t} dict={dict} lang={lang} truck={truck} pct={pct} doneIds={doneIds} />
-        : <ManualMode s={s} t={t} dict={dict} trip={trip} driver={driver}
+        ? <GpsMode t={t} lang={lang} truck={truck} tm={tm} doneIds={doneIds} />
+        : <ManualMode t={t} dict={dict} trip={trip} driver={driver}
                       reports={reports} doneIds={doneIds} />}
+
+      {picking && (
+        <Sheet title={t('track.pickVehicle')} onClose={() => setPicking(false)}>
+          <div className="pb-2">
+            {running.map((r) => {
+              const tk = s.truck(r.truckId), dv = s.driver(r.driverId), m = s.telemetryOf(r.id)
+              const on = r.id === trip.id
+              return (
+                <button key={r.id} className="row w-full text-left"
+                        onClick={() => { setTripId(r.id); setPicking(false) }}>
+                  <span className="glyph"
+                        style={on ? { background: 'var(--color-pri)', color: '#fff' } : undefined}>
+                    <Icon n="truck" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="row-t block plate">{tk.plate}</span>
+                    <span className="row-s block">{dv.name} · {t(`status.${r.status}`)}</span>
+                    {m && <span className="block text-[11px] mt-0.5"
+                                style={{ color: 'var(--color-mut-2)' }}>
+                      {m.place} · {timeWib(m.at)}
+                    </span>}
+                  </span>
+                  {on && <Icon n="check" className="w-[18px] h-[18px] shrink-0"
+                               style={{ color: 'var(--color-pri)' }} strokeWidth="2.6" />}
+                </button>
+              )
+            })}
+          </div>
+        </Sheet>
+      )}
     </>
   )
 }
 
 /* ---- mode boîtier GPS ---------------------------------------------------- */
-function GpsMode({ s, t, dict, lang, truck, pct, doneIds }) {
-  const tm = s.telemetry
+function GpsMode({ t, lang, truck, tm, doneIds }) {
+  if (!tm) return null
   return (
     <div className="flex-1 min-h-0 flex flex-col">
       <div className="px-3.5 pt-2 shrink-0">
@@ -65,7 +132,7 @@ function GpsMode({ s, t, dict, lang, truck, pct, doneIds }) {
             <div className="grid grid-cols-3 gap-2 mt-3">
               {[
                 { icon: 'gauge', k: t('track.speed'), v: `${tm.speedKmh}`, u: t('track.kmh') },
-                { icon: 'target', k: t('track.heading'), v: tm.heading === 'utara' ? 'Utara' : tm.heading, u: '' },
+                { icon: 'target', k: t('track.heading'), v: t(`track.headings.${tm.heading}`), u: '' },
                 { icon: 'fuel', k: t('track.fuel'), v: `${tm.fuelPercent}`, u: '%' },
               ].map((m) => (
                 <div key={m.k} className="rounded-[12px] px-2.5 py-2.5"
@@ -134,7 +201,7 @@ function GpsMode({ s, t, dict, lang, truck, pct, doneIds }) {
 }
 
 /* ---- mode dégradé : le chauffeur envoie sa position par WhatsApp --------- */
-function ManualMode({ s, t, dict, trip, driver, reports, doneIds }) {
+function ManualMode({ t, dict, trip, driver, reports, doneIds }) {
   const act = useAct()
   const [open, setOpen] = useState(false)
   const remaining = route.waypoints.filter((w) => !doneIds.includes(w.id))

@@ -21,8 +21,8 @@ npm run dev
 
 **Propriétaire / admin** — accueil et rentabilité du mois · liste et détail
 des trajets · création de commande en trois étapes · dépenses et
-justificatifs · statut du trajet · suivi de position · factures et alertes
-d'échéance · flotte, chauffeurs, clients.
+justificatifs · statut du trajet · suivi de position avec sélecteur de
+véhicule · factures et alertes d'échéance · flotte, chauffeurs, clients.
 
 **Chauffeur** — mission en cours · saisie des frais de route avec photo de
 justificatif · envoi de position aux points de passage.

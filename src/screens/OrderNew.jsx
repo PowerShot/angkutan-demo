@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
-import { useStore, useAct } from '../store/index.jsx'
+import { useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Btn, Field, Input, Select, Seg, Banner } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
@@ -12,7 +12,6 @@ import { customers, drivers, trucks, tariffs, NOW } from '../data/demoData.js'
    À la création, la commande passe au statut « Menunggu muat ». */
 export default function OrderNew() {
   const { t, dict } = useT()
-  const s = useStore()
   const act = useAct()
   const nav = useNavigate()
   const [step, setStep] = useState(1)

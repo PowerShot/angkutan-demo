@@ -3,8 +3,8 @@ import { useT } from '../i18n/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Avatar, Pill } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
-import { dateShort, daysBetween } from '../lib/format.js'
-import { drivers, NOW } from '../data/demoData.js'
+import { dateShort } from '../lib/format.js'
+import { drivers } from '../data/demoData.js'
 
 export default function Drivers() {
   const { t, dict } = useT()

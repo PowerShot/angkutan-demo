@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
-import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Row, Pill } from '../components/bits.jsx'
 import { trucks, drivers, customers } from '../data/demoData.js'

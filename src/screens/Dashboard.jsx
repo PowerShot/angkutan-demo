@@ -5,7 +5,7 @@ import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { Seg, Pill, Banner, Btn, SectionTitle } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, dateShort, dateDay, daysBetween } from '../lib/format.js'
-import { NOW, tripCostBreakdown, tripCostTotal } from '../data/demoData.js'
+import { NOW } from '../data/demoData.js'
 
 export default function Dashboard() {
   const { t } = useT()
@@ -100,7 +100,7 @@ function ProfitTab() {
               {isOpen && (
                 <div className="mt-2.5 pt-2.5 border-t flex flex-col gap-1.5 fade"
                      style={{ borderColor: 'var(--color-line-2)' }}>
-                  {tripCostBreakdown.map((c) => (
+                  {m.parts.map((c) => (
                     <div key={c.key} className="flex justify-between text-[12.5px]">
                       <span style={{ color: 'var(--color-mut)' }}>{t(`costKeys.${c.key}`)}</span>
                       <span className="tabular-nums font-semibold">{rp(c.amount)}</span>
@@ -109,7 +109,7 @@ function ProfitTab() {
                   <div className="flex justify-between text-[12.5px] pt-1.5 mt-0.5 border-t font-bold"
                        style={{ borderColor: 'var(--color-line-2)' }}>
                     <span>{t('dash.cost')}</span>
-                    <span className="tabular-nums">{rp(tripCostTotal)}</span>
+                    <span className="tabular-nums">{rp(m.cost)}</span>
                   </div>
                 </div>
               )}

@@ -17,7 +17,8 @@ const initial = () => ({
   invoices: D.invoices.map((i) => ({ ...i })),
   positions: D.positions.map((p) => ({ ...p })),
   statusLog: D.statusLog.map((s) => ({ ...s })),
-  telemetry: { ...D.telemetry },
+  telemetry: Object.fromEntries(
+    Object.entries(D.telemetry).map(([k, v]) => [k, { ...v }])),
   toast: null,
 })
 
@@ -55,9 +56,11 @@ function reducer(state, a) {
     case 'addPosition': {
       const positions = [...state.positions, { ...a.position }]
       const wp = D.route.waypoints.find((w) => w.id === a.position.waypointId)
-      const telemetry = wp
-        ? { ...state.telemetry, lat: wp.lat, lon: wp.lon, place: wp.name,
-            odometerKm: wp.km, at: a.position.at }
+      const cur = state.telemetry[a.position.tripId]
+      const telemetry = wp && cur
+        ? { ...state.telemetry,
+            [a.position.tripId]: { ...cur, lat: wp.lat, lon: wp.lon, place: wp.name,
+                                   odometerKm: wp.km, at: a.position.at } }
         : state.telemetry
       return { ...state, positions, telemetry,
                toast: { kind: 'ok', key: 'track.savePos' } }
@@ -81,7 +84,13 @@ export function StoreProvider({ children }) {
     const driver = (id) => D.drivers.find((d) => d.id === id)
     const customer = (id) => D.customers.find((c) => c.id === id)
     const truck = (id) => D.trucks.find((t) => t.id === id)
-    const activeTrip = () => state.trips.find((t) => t.status !== 'selesai')
+    /* Tous les trajets non terminés, dans l'ordre de départ. */
+    const activeTrips = () => state.trips.filter((t) => t.status !== 'selesai')
+    const activeTrip = () => activeTrips()[0]
+    /* Le trajet en cours d'un chauffeur donné — utilisé par le rôle Sopir. */
+    const activeTripOf = (driverId) =>
+      activeTrips().find((t) => t.driverId === driverId) ?? activeTrips()[0]
+    const telemetryOf = (tripId) => state.telemetry[tripId] ?? null
     const expensesOf = (tripId) => state.expenses.filter((e) => e.tripId === tripId)
     const expenseTotal = (tripId) => expensesOf(tripId).reduce((s, e) => s + e.amount, 0)
     const positionsOf = (tripId) =>
@@ -93,7 +102,10 @@ export function StoreProvider({ children }) {
        laba = (tarif aller + tarif muatan balik) − (sewa truk + solar + tol + sopir) */
     const margin = (t) => {
       const revenue = (t.outbound?.rate ?? 0) + (t.backhaul?.rate ?? 0)
-      return { revenue, cost: D.tripCostTotal, profit: revenue - D.tripCostTotal }
+      // le loyer diffère d'un camion à l'autre : le coût est dérivé du véhicule
+      const truckOf = D.trucks.find((x) => x.id === t.truckId) ?? D.trucks[0]
+      const cost = D.tripCostTotal(truckOf)
+      return { revenue, cost, parts: D.tripCostParts(truckOf), profit: revenue - cost }
     }
     const monthMargin = () =>
       state.trips.reduce((s, t) => s + margin(t).profit, 0)
@@ -102,8 +114,9 @@ export function StoreProvider({ children }) {
     const overdueInvoices = () =>
       openInvoices().filter((i) => i.due < D.NOW.slice(0, 10))
 
-    return { trip, driver, customer, truck, activeTrip, expensesOf, expenseTotal,
-             positionsOf, logOf, margin, monthMargin, openInvoices, overdueInvoices }
+    return { trip, driver, customer, truck, activeTrip, activeTrips, activeTripOf,
+             telemetryOf, expensesOf, expenseTotal, positionsOf, logOf, margin,
+             monthMargin, openInvoices, overdueInvoices }
   }, [state])
 
   const value = useMemo(() => ({ ...state, dispatch, ...api, D }), [state, api])

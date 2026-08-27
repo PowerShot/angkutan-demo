@@ -3,7 +3,7 @@ import { useT } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
 import { StatusPill, Pill } from '../components/bits.jsx'
-import { rp, dateDay, daysBetween } from '../lib/format.js'
+import { rp, dateDay } from '../lib/format.js'
 
 export default function Trips() {
   const { t, dict } = useT()

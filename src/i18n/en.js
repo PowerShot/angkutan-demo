@@ -22,6 +22,7 @@ export default {
           greetAfternoon: 'Good afternoon', greetEvening: 'Good evening',
           profit: 'Trip margin', opex: 'Operating costs this month',
           tripsCount: '{n} trips', running: '{n} in progress',
+          opexScope: '{plates} only',
           shortcuts: 'Menu', current: 'Trip in progress',
           lastPos: 'Last position', noTrip: 'No trip in progress' },
 
@@ -67,6 +68,9 @@ export default {
           backhaulBooked: 'Muatan balik already booked' },
 
   track: { title: 'Tracking', gps: 'GPS Tracker', manual: 'WhatsApp Report',
+           pickVehicle: 'Choose vehicle',
+           vehicle: 'Vehicle',
+           headings: { utara: 'North', selatan: 'South', diam: 'Stationary' },
            engine: 'Engine', engineOn: 'Running', engineOff: 'Off',
            speed: 'Speed', kmh: 'km/h', heading: 'Heading',
            fuel: 'Diesel', progress: 'Distance covered', of: 'of',
@@ -115,7 +119,7 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { back: 'Back', close: 'Close', all: 'All', search: 'Search',
+  common: { change: 'Change', back: 'Back', close: 'Close', all: 'All', search: 'Search',
             today: 'Today', yesterday: 'Yesterday', more: 'More',
             seeAll: 'See all', open: 'Open', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Yes', no: 'No', of: 'of' },

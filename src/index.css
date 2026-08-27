@@ -325,7 +325,10 @@
    quel que soit l'ordre des imports.
    ========================================================================= */
 /* -- carte Leaflet ---------------------------------------------------- */
-.mapwrap{position:relative;overflow:hidden}
+/* isolation : les calques internes de Leaflet montent jusqu'à z-index 800.
+   Sans contexte d'empilement propre, ils passent devant les feuilles basses
+   et les bandeaux de l'application. */
+.mapwrap{position:relative;overflow:hidden;isolation:isolate;z-index:0}
 .mapwrap{background:#C9DAE0}   /* couleur de mer du fond vectoriel de secours */
 .mapwrap .leaflet-container{background:transparent;font-family:var(--font-sans);
   height:100%;width:100%}
