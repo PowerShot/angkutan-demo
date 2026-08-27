@@ -61,7 +61,13 @@ des défauts qu'il a fallu corriger.**
 - **Mobile d'abord, usage à une main.** Cible de test : **360 × 640**, la
   largeur Android d'entrée de gamme. Vérifier aussi 390 × 844 et qu'un écran
   large ne casse rien — sans concevoir de version dédiée.
-- Le sélecteur **ID / EN** est accessible depuis l'en-tête de chaque écran.
+- Le sélecteur **ID / EN** et la **pastille de compte** sont dans l'en-tête de
+  chaque écran. La pastille ouvre la bascule de rôle et la déconnexion :
+  sans elle, changer de rôle imposait de recharger la page.
+- **Basculer de rôle conserve l'état de la démo.** Une commande créée côté
+  admin doit rester visible côté chauffeur — c'est ce qui rend la
+  démonstration continue. Seule la déconnexion remet à zéro, et le bouton
+  le dit sous lui.
 - **Un chiffre annoncé comme un gain doit être un gain acquis.** Ne jamais
   fondre du prévisionnel dans un montant en tête : la projection est une
   ligne distincte. Et ne jamais poser côte à côte une marge et des charges

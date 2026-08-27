@@ -32,6 +32,12 @@ function reducer(state, a) {
     case 'signOut':
       return { ...initial() }
 
+    /* Basculer de rôle conserve l'état : une commande créée côté admin reste
+       visible côté chauffeur. C'est ce qui rend la démonstration continue. */
+    case 'switchRole':
+      return { ...state,
+               session: { role: a.role, driverId: a.role === 'driver' ? 'D1' : null } }
+
     case 'addOrder': {
       const order = { ...a.order, id: nextId('PSN-'), status: 'menunggu_muat', createdAt: D.NOW }
       return { ...state, orders: [order, ...state.orders],

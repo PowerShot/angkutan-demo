@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import Icon from './Icon.jsx'
 import { useT, LANGS } from '../i18n/index.jsx'
 import { useStore } from '../store/index.jsx'
 import { time } from '../lib/format.js'
-import { NOW } from '../data/demoData.js'
+import { Sheet, Btn } from './bits.jsx'
+import { NOW, business } from '../data/demoData.js'
 
 /* -- barre d'état ---------------------------------------------------------
    Heure indonésienne (le point, pas les deux-points). Pas de nom
@@ -45,6 +47,62 @@ export function LangPill({ light = true }) {
   )
 }
 
+/* -- compte : bascule de rôle et déconnexion -----------------------------
+   Sans cela, changer de rôle imposait de recharger la page. La pastille
+   porte son libellé, jamais une icône seule. */
+export function AccountChip() {
+  const { t } = useT()
+  const { session, dispatch } = useStore()
+  const nav = useNavigate()
+  const [open, setOpen] = useState(false)
+  if (!session) return null
+
+  const isAdmin = session.role === 'admin'
+  const other = isAdmin ? 'driver' : 'admin'
+  const label = t(isAdmin ? 'role.adminShort' : 'role.driverShort')
+  const otherLabel = t(other === 'admin' ? 'role.adminShort' : 'role.driverShort')
+
+  const swap = () => {
+    dispatch({ type: 'switchRole', role: other })
+    setOpen(false)
+    nav(other === 'driver' ? '/sopir/tugas' : '/beranda')
+  }
+  const out = () => { dispatch({ type: 'signOut' }); setOpen(false); nav('/') }
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}
+              className="flex items-center gap-1 rounded-full pl-2 pr-1.5 py-[4px]
+                         text-[10.5px] font-extrabold shrink-0"
+              style={{ boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / .34)', color: '#EAF3F5' }}>
+        <Icon n="user" className="w-[12px] h-[12px]" />
+        {label}
+        <Icon n="chevD" className="w-[12px] h-[12px]" />
+      </button>
+
+      {open && (
+        <Sheet title={t('account.title')} onClose={() => setOpen(false)}>
+          <div className="px-4 pb-1">
+            <div className="k mb-1.5">{t('login.as')}</div>
+            <div className="text-[15px] font-extrabold">
+              {t(isAdmin ? 'role.admin' : 'role.driver')}
+            </div>
+            <div className="sub">{isAdmin ? business.owner : t('role.driverHint')}</div>
+          </div>
+          <div className="px-4 pt-4 pb-2 flex flex-col gap-2.5">
+            <Btn icon="refresh" onClick={swap}>
+              {t('account.switch', { role: otherLabel })}
+            </Btn>
+            <p className="text-center subtle -mt-1">{t('account.switchNote')}</p>
+            <Btn variant="btn-quiet" icon="logout" onClick={out}>{t('account.logout')}</Btn>
+            <p className="text-center subtle -mt-1">{t('account.logoutNote')}</p>
+          </div>
+        </Sheet>
+      )}
+    </>
+  )
+}
+
 /* -- en-tête ------------------------------------------------------------- */
 export function TopBar({ title, back, right, sub }) {
   const nav = useNavigate()
@@ -62,6 +120,7 @@ export function TopBar({ title, back, right, sub }) {
           {sub && <div className="text-[11.5px] truncate" style={{ color: '#9CC3CE' }}>{sub}</div>}
         </div>
         {right}
+        <AccountChip />
         <LangPill />
       </div>
     </div>

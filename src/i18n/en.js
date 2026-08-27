@@ -10,8 +10,13 @@ export default {
          task: 'My job', costs: 'Costs', location: 'Location' },
 
   role: { admin: 'Admin / Owner', driver: 'Driver',
+          adminShort: 'Admin', driverShort: 'Driver',
           adminHint: 'Orders, invoices, profit, reference data',
           driverHint: 'Status, road costs, send location' },
+
+  account: { title: 'Account', switch: 'Switch to {role}',
+             switchNote: 'Demo data is kept',
+             logout: 'Log out', logoutNote: 'Back to the sign-in screen, demo restarts' },
 
   login: { title: 'Sign in', sub: 'Use your registered WhatsApp number.',
            phone: 'WhatsApp number', code: 'Access code',

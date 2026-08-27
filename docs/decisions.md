@@ -75,6 +75,30 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Impossible de se déconnecter, donc impossible de changer de rôle
+
+L'action `signOut` existait dans l'état depuis le début et **n'était câblée à
+aucun bouton**. Le seul moyen de passer d'un rôle à l'autre était de recharger
+la page — ce qui, pour une démonstration où l'on veut montrer les deux côtés,
+est le pire des parcours.
+
+Une **pastille de compte** est ajoutée à l'en-tête de chaque écran, à côté du
+sélecteur de langue. Elle porte son libellé — « Admin » ou « Sopir » — jamais
+une icône seule. Elle ouvre une feuille basse avec deux actions :
+
+| Action | Effet |
+|---|---|
+| **Ganti ke Sopir / Admin** | bascule immédiate, arrive sur l'écran d'accueil du rôle |
+| **Keluar** | retour à l'écran de connexion, démo remise à zéro |
+
+**La bascule conserve l'état.** Une commande créée côté admin reste visible
+côté chauffeur : c'est ce qui permet de dérouler une démonstration continue
+plutôt que deux démonstrations séparées. Seule la déconnexion réinitialise, et
+la phrase sous le bouton le dit.
+
+Mesuré en 360 px : la pastille fait 79 px, le sélecteur de langue 59 px,
+l'en-tête ne déborde ni ne tronque son titre, même avec un bouton retour.
+
 ## Cinq boutons WhatsApp qui n'ouvraient rien
 
 Les boutons WhatsApp de la fiche chauffeur, des clients, de la flotte, du

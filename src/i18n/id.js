@@ -9,8 +9,13 @@ export default {
          task: 'Tugas', costs: 'Biaya', location: 'Lokasi' },
 
   role: { admin: 'Admin / Pemilik', driver: 'Sopir',
+          adminShort: 'Admin', driverShort: 'Sopir',
           adminHint: 'Pesanan, tagihan, laba, data induk',
           driverHint: 'Status, biaya jalan, kirim lokasi' },
+
+  account: { title: 'Akun', switch: 'Ganti ke {role}',
+             switchNote: 'Data demo tetap tersimpan',
+             logout: 'Keluar', logoutNote: 'Kembali ke layar masuk, demo diulang dari awal' },
 
   login: { title: 'Masuk', sub: 'Gunakan nomor WhatsApp yang terdaftar.',
            phone: 'Nomor WhatsApp', code: 'Kode masuk',
