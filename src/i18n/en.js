@@ -76,6 +76,7 @@ export default {
            recordManual: 'Record position manually', point: 'Checkpoint',
            time: 'Time', date: 'Date', savePos: 'Save Position',
            enteredBy: 'Recorded by', fromWa: 'via WhatsApp',
+           offlineMap: 'Offline map',
            sendLocation: 'Send My Location', passed: 'Passed' },
 
   dash: { title: 'Profit & Invoices', tabProfit: 'Profit', tabInvoice: 'Invoices',

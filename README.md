@@ -47,4 +47,5 @@ Rien n'est écrit en dur dans les écrans.
 
 React 19 · Vite 8 · Tailwind 4 · React Router 7 · Leaflet.
 Polices auto-hébergées (Plus Jakarta Sans, DM Mono).
-Fond de carte © OpenStreetMap, avec jeu de tuiles de secours embarqué.
+Fond de carte © OpenStreetMap en ligne, avec fond vectoriel Natural Earth
+(domaine public) en secours hors ligne.

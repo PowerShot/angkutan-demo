@@ -75,6 +75,7 @@ export default {
            recordManual: 'Catat posisi manual', point: 'Titik',
            time: 'Waktu', date: 'Tanggal', savePos: 'Simpan Posisi',
            enteredBy: 'Dicatat oleh', fromWa: 'dari WhatsApp',
+           offlineMap: 'Peta luring',
            sendLocation: 'Kirim Lokasi Saya', passed: 'Sudah lewat' },
 
   dash: { title: 'Laba & Tagihan', tabProfit: 'Laba', tabInvoice: 'Tagihan',

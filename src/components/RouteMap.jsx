@@ -1,35 +1,69 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { MapContainer, Polyline, Marker, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import { route } from '../data/demoData.js'
+import basemap from '../data/basemap.json'
 
 /* =========================================================================
    CARTE DU TRAJET
-   Vrai fond de carte OpenStreetMap. En ligne par défaut ; si une tuile ne
-   répond pas, bascule automatique sur le jeu embarqué dans public/tiles
-   (corridor Pekanbaru–Medan, zoom 6 à 8). Aucune clé d'API, aucun compte.
+   Deux couches superposées :
+     1. un fond vectoriel — côtes et lacs réels issus de Natural Earth,
+        domaine public — dessiné en permanence sous les tuiles ;
+     2. les tuiles OpenStreetMap en ligne, qui le recouvrent.
+   Si une tuile ne répond pas, elle devient transparente et le fond
+   vectoriel apparaît. La bascule est donc immédiate et sans clignotement,
+   sans avoir à détecter une panne.
+   Aucune clé d'API, aucun compte, aucune tuile mise en cache localement.
    ========================================================================= */
 
-function Tiles() {
+// tuile transparente : une tuile en échec disparaît au lieu d'afficher une erreur
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
+const SEA = '#C9DAE0', LAND = '#F0EEE7', COAST = '#B9C3C0'
+
+function toRings(polys) {
+  // GeoJSON est en [lon, lat], Leaflet attend [lat, lon]
+  return polys.map((rings) => rings.map((r) => r.map(([x, y]) => [y, x])))
+}
+
+function Basemap() {
   const map = useMap()
   useEffect(() => {
-    const base = import.meta.env.BASE_URL
+    map.createPane('basemap')
+    const pane = map.getPane('basemap')
+    pane.style.zIndex = 150            // sous le tilePane (200)
+    pane.style.pointerEvents = 'none'
+
+    const layers = []
+    for (const rings of toRings(basemap.land)) {
+      layers.push(L.polygon(rings, { pane: 'basemap', stroke: true, color: COAST,
+        weight: 0.7, fillColor: LAND, fillOpacity: 1 }).addTo(map))
+    }
+    for (const rings of toRings(basemap.lakes)) {
+      layers.push(L.polygon(rings, { pane: 'basemap', stroke: false,
+        fillColor: SEA, fillOpacity: 1 }).addTo(map))
+    }
+    return () => layers.forEach((l) => map.removeLayer(l))
+  }, [map])
+  return null
+}
+
+function Tiles({ onState }) {
+  const map = useMap()
+  useEffect(() => {
+    let ok = 0, ko = 0
     const layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      minZoom: 6, maxZoom: 12,
-      attribution: '&copy; OpenStreetMap',
-      crossOrigin: true,
+      minZoom: 5, maxZoom: 13, errorTileUrl: BLANK, crossOrigin: true,
+      attribution: '&copy; OpenStreetMap · Natural Earth',
     })
-    // bascule automatique : la tuile en échec est remplacée par sa copie locale
-    layer.on('tileerror', (e) => {
-      const el = e.tile
-      if (!el || el.dataset.fb === '1') return
-      el.dataset.fb = '1'
-      const { x, y, z } = e.coords
-      el.src = `${base}tiles/${z}/${x}/${y}.png`
+    layer.on('tileload', (e) => {
+      if (e.tile.src === BLANK) return          // tuile de remplacement, pas un vrai chargement
+      ok++; onState(true)
     })
+    layer.on('tileerror', () => { ko++; if (ok === 0 && ko >= 3) onState(false) })
     layer.addTo(map)
     return () => { map.removeLayer(layer) }
-  }, [map])
+  }, [map, onState])
   return null
 }
 
@@ -60,11 +94,12 @@ const truckIcon = L.divIcon({
 })
 
 export default function RouteMap({ telemetry, doneWaypointIds = [], height = 300,
-                                   showTruck = true, interactive = true }) {
+                                   showTruck = true, interactive = true, offlineLabel }) {
   const shape = route.shape
   const bounds = useMemo(() => L.latLngBounds(shape), [shape])
+  const [online, setOnline] = useState(true)
 
-  // point du tracé le plus proche du camion : sépare parcouru et restant
+  // point du tracé le plus proche du camion : sépare le parcouru du restant
   const cut = useMemo(() => {
     if (!telemetry) return 0
     let best = 0, bd = Infinity
@@ -79,15 +114,16 @@ export default function RouteMap({ telemetry, doneWaypointIds = [], height = 300
   const left = shape.slice(cut)
 
   return (
-    <div className="mapwrap" style={{ height }}>
+    <div className="mapwrap" style={{ height, background: SEA }}>
       <MapContainer bounds={bounds} zoomControl={interactive} zoomSnap={0.25} zoomDelta={0.5}
                     dragging={interactive} scrollWheelZoom={false}
                     doubleClickZoom={interactive} touchZoom={interactive}
                     attributionControl>
-        <Tiles />
+        <Basemap />
+        <Tiles onState={setOnline} />
         <Fit bounds={bounds} />
 
-        {/* gainage blanc, puis le tracé : la lecture reste nette sur la carte */}
+        {/* gainage blanc puis tracé : la lecture reste nette sur n'importe quel fond */}
         <Polyline positions={shape} pathOptions={{ color: '#FFFFFF', weight: 7.5, opacity: .95 }} />
         <Polyline positions={left} pathOptions={{ color: '#7C949B', weight: 3.4, opacity: .95,
                                                   dashArray: '2 6', lineCap: 'round' }} />
@@ -107,6 +143,10 @@ export default function RouteMap({ telemetry, doneWaypointIds = [], height = 300
           <Marker position={[telemetry.lat, telemetry.lon]} icon={truckIcon} zIndexOffset={500} />
         )}
       </MapContainer>
+
+      {!online && offlineLabel && (
+        <span className="map-offline">{offlineLabel}</span>
+      )}
     </div>
   )
 }

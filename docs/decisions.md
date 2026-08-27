@@ -31,10 +31,28 @@ de questions », voici tout ce que j'ai tranché seul et pourquoi.
 | Décision | Raison |
 |---|---|
 | Routage par **hash** (`#/beranda`) | GitHub Pages ne réécrit pas les URL côté serveur. Bénéfice réel : le bouton retour d'Android fonctionne. |
-| Carte : **tuiles en ligne + repli local automatique** | Le repli couvre les zooms 6 à 8 sur le corridor (91 tuiles, 740 Ko). Si une tuile en ligne échoue, `tileerror` bascule sur la copie locale sans case grise. |
+| Carte : **tuiles en ligne + fond vectoriel de secours** | Voir ci-dessous : la première tentative, un cache de tuiles OpenStreetMap, a échoué et devait être abandonnée. |
 | **Aucune persistance** | La démo se remet à zéro au rechargement, ce qui est souhaitable pour la montrer plusieurs fois. |
 | Traduction : **hook maison de 30 lignes** plutôt que `react-i18next` | Une dépendance de moins, et le fichier de traduction reste lisible par un non-développeur. 244 clés, parité vérifiée entre les deux langues. |
 | Dépôt **public** sur GitHub Pages | Demandé explicitement, le lien devant être partagé. |
+
+## Une erreur, et ce qu'elle a changé
+
+Le repli hors ligne devait d'abord être un **cache de 91 tuiles
+OpenStreetMap**. À la vérification, 90 des 91 fichiers téléchargés étaient en
+réalité la même image : l'avertissement « Access blocked — App is not
+following the tile usage policy of OpenStreetMap's volunteer-run servers ».
+Le téléchargement en masse avait déclenché leur protection anti-aspiration.
+
+Sans cette vérification, la démonstration aurait affiché à la partenaire un
+message accusant l'application de violer la politique d'OpenStreetMap dès la
+moindre faiblesse de réseau.
+
+Le cache a été supprimé et remplacé par un **fond vectoriel Natural Earth**
+(domaine public) : côtes et lacs réels de la région, 108 Ko, dessiné en
+permanence sous les tuiles. C'est de la vraie géographie — on y reconnaît la
+côte est de Sumatra, le détroit de Malacca et le lac Toba — et c'est
+juridiquement propre.
 
 ## Bugs corrigés en cours de route
 

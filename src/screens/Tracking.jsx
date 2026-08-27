@@ -45,7 +45,8 @@ function GpsMode({ s, t, dict, lang, truck, pct, doneIds }) {
     <div className="flex-1 min-h-0 flex flex-col">
       <div className="px-3.5 pt-2 shrink-0">
         <div className="rounded-[16px] overflow-hidden" style={{ boxShadow: 'var(--shadow-card)' }}>
-          <RouteMap telemetry={tm} doneWaypointIds={doneIds} height={330} />
+          <RouteMap telemetry={tm} doneWaypointIds={doneIds} height={330}
+                    offlineLabel={t("track.offlineMap")} />
         </div>
       </div>
 
@@ -162,7 +163,7 @@ function ManualMode({ s, t, dict, trip, driver, reports, doneIds }) {
                   <span className="row-t block">{w.name}</span>
                   <span className="row-s block">{dateShort(r.at, dict)}, {timeWib(r.at)}</span>
                   {r.note && <span className="block text-[11.5px] mt-1 italic"
-                                   style={{ color: 'var(--color-ink-2)' }}>« {r.note} »</span>}
+                                   style={{ color: 'var(--color-ink-2)' }}>&ldquo;{r.note}&rdquo;</span>}
                   <span className="block text-[10.5px] mt-1.5" style={{ color: 'var(--color-mut-2)' }}>
                     {t('track.enteredBy')} {r.enteredBy} · {t('track.fromWa')}
                   </span>
