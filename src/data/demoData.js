@@ -87,11 +87,8 @@ export const drivers = [
     licenceClass: 'B2 Umum',
     licenceExpiry: '2028-05-22',
     status: 'jalan',              // 'jalan' (en route) | 'siap' (disponible)
-    // Aucune photo libre de droit convenable trouvée pour ce profil : repli
-    // sur un avatar aux initiales. Déposer public/photos/sudarmanto.jpg et
-    // remettre le nom de fichier ici. Prompt prêt : docs/prompts-photos.md
-    photo: null,
-    photoFocus: '50% 20%',
+    photo: 'sudarmanto.jpg',      // visage généré — aucune personne réelle
+    photoFocus: '50% 34%',        // cadrage du visage dans les avatars et la KTP
   },
   {
     id: 'D2',

@@ -4,16 +4,21 @@ Les photos actuelles sont **temporaires**. Ce fichier contient les prompts à
 donner à Nano Banana (ou à tout autre générateur d'images) pour les remplacer
 par des visages générés, cohérents avec les âges de la fiche.
 
-## Pourquoi remplacer
+## État actuel
 
-- **Hendra Gunawan** utilise aujourd'hui une photo libre de droit d'une
-  personne réelle. Elle apparaît sur sa fiche **et sur la reproduction de sa
-  KTP**. Diffuser publiquement une carte d'identité factice portant le visage
-  d'un individu réel n'est pas souhaitable : ce remplacement règle le point.
-- **Sudarmanto** n'a pas de photo. Le fonds libre de droit ne contient
-  pratiquement aucun portrait d'Indonésien en âge de travailler cadré en
-  buste — presque tout est folklorique ou âgé. Sa fiche affiche donc un
-  avatar aux initiales en attendant.
+| Chauffeur | Photo | À faire |
+|---|---|---|
+| **Sudarmanto**, 41 ans | ✅ visage **généré** | rien |
+| **Hendra Gunawan**, 34 ans | ⚠️ photo libre de droit d'une **personne réelle** | remplacer avec le prompt 2 |
+
+Le portrait de Sudarmanto a été généré à partir du prompt 1 ci-dessous, puis
+recadré en 480 × 640. L'original non recadré est conservé dans
+`docs/photos-sources/sudarmanto-original.jpeg`.
+
+**Il reste Hendra.** Sa photo apparaît sur sa fiche **et sur la reproduction
+de sa KTP**. Le lien de démonstration étant public, une carte d'identité
+factice portant le visage d'une personne réelle est le dernier point du
+rendu qui mérite d'être corrigé avant diffusion large.
 
 ## Où déposer les fichiers
 
@@ -37,7 +42,7 @@ horizontalement, le second verticalement. Baisser la valeur remonte le visage.
 
 ---
 
-## Prompt 1 — Sudarmanto, 41 ans
+## Prompt 1 — Sudarmanto, 41 ans *(déjà utilisé)*
 
 ```
 Photorealistic head-and-shoulders portrait of a 41-year-old Indonesian man
@@ -51,7 +56,7 @@ no studio lighting, no logos, no text. Documentary photography style,
 85mm lens. Vertical 3:4 framing, head centred, eyes on the upper third.
 ```
 
-## Prompt 2 — Hendra Gunawan, 34 ans
+## Prompt 2 — Hendra Gunawan, 34 ans *(à faire)*
 
 ```
 Photorealistic head-and-shoulders portrait of a 34-year-old Indonesian man
@@ -77,6 +82,13 @@ Ajouts utiles à la fin du prompt, un seul à la fois :
 | Trop souriant | `neutral expression, mouth closed` |
 | Traits pas assez indonésiens | `Malay-Indonesian facial features, Sumatran` |
 | Cadrage trop large | `tight crop, shoulders visible at the bottom edge of the frame` |
+
+## Recadrage
+
+Le générateur rend en général un plan plus large que nécessaire. Recadrer en
+**480 × 640, tête-épaules, yeux au tiers supérieur** — c'est ce qui donne un
+avatar rond correct et une photo de KTP crédible. Ajuster ensuite
+`photoFocus` dans `demoData.js` si le visage n'est pas centré.
 
 ## Variante pour la photo de la KTP
 
