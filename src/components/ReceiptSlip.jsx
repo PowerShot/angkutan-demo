@@ -8,12 +8,13 @@ import { num, dec, dateNum, time } from '../lib/format.js'
    administrative), aucun logo de marque n'est reproduit.
    ========================================================================= */
 
+const cls = (large) => `receipt${large ? ' receipt-lg' : ''}`
 const Line = () => <hr />
 const Rr = ({ l, r, b }) => (
   <div className="rr"><span>{l}</span><span className={b ? 'rb' : ''}>{r}</span></div>
 )
 
-export default function ReceiptSlip({ expense }) {
+export default function ReceiptSlip({ expense, large = false }) {
   const r = expense?.receipt
   if (!r) return null
   const d = dateNum(expense.at)
@@ -22,7 +23,7 @@ export default function ReceiptSlip({ expense }) {
   if (r.type === 'spbu') {
     const tunai = Math.ceil(expense.amount / 50000) * 50000
     return (
-      <div className="receipt">
+      <div className={cls(large)}>
         <div className="rc rb rt">{r.station}</div>
         <div className="rc">{r.addr}</div>
         <div className="rc">{r.city}</div>
@@ -47,7 +48,7 @@ export default function ReceiptSlip({ expense }) {
 
   if (r.type === 'tol') {
     return (
-      <div className="receipt">
+      <div className={cls(large)}>
         <div className="rc rb rt">JALAN TOL</div>
         <div className="rc">{r.gate}</div>
         <Line />
@@ -65,7 +66,7 @@ export default function ReceiptSlip({ expense }) {
   }
 
   return (
-    <div className="receipt">
+    <div className={cls(large)}>
       <div className="rc rb rt">{r.place}</div>
       <Line />
       <Rr l={d} r={h} />

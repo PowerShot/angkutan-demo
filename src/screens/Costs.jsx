@@ -83,10 +83,8 @@ export default function Costs() {
 
       {proof && (
         <Sheet title={t('costs.viewProof')} onClose={() => setProof(null)}>
-          <div className="px-4 pb-6 pt-1 flex flex-col items-center gap-3">
-            <div style={{ transform: 'scale(1.32)', transformOrigin: 'top center', marginBottom: 44 }}>
-              <ReceiptSlip expense={proof} />
-            </div>
+          <div className="px-4 pb-7 pt-2 flex flex-col items-center gap-4">
+            <ReceiptSlip expense={proof} large />
             <div className="text-center">
               <div className="text-[13px] font-bold">{t(`costs.kinds.${proof.kind}`)}</div>
               <div className="subtle">{stamp(proof.at, dict)}</div>
