@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet } from '../components/bits.jsx'
+import { Seg, Btn, Pill, Banner, Field, Input, Select, Sheet, NavButtons } from '../components/bits.jsx'
 import RouteMap from '../components/RouteMap.jsx'
 import Icon from '../components/Icon.jsx'
 import { timeWib, dateShort, ago, minutesBetween } from '../lib/format.js'
@@ -151,9 +151,11 @@ function GpsMode({ t, lang, truck, tm, doneIds }) {
             </div>
 
             <div className="flex items-center gap-1.5 mt-3 text-[12.5px]">
-              <Icon n="pin" className="w-[14px] h-[14px]" style={{ color: 'var(--color-pri)' }} />
-              <span className="font-bold">{tm.place}</span>
+              <Icon n="pin" className="w-[14px] h-[14px] shrink-0" style={{ color: 'var(--color-pri)' }} />
+              <span className="font-bold flex-1 min-w-0 truncate">{tm.place}</span>
             </div>
+            {/* Coordonnées du boîtier : plus fiables qu'une adresse en texte. */}
+            <div className="mt-2"><NavButtons lat={tm.lat} lon={tm.lon} compact /></div>
             {/* Un relevé qui date n'est pas une information neutre : au-delà de
                 deux heures, la ligne le dit au lieu de le murmurer en gris. */}
             <div className="mt-2 flex items-center gap-1.5 text-[11.5px]">

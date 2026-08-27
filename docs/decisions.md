@@ -75,6 +75,29 @@ unique et non une liste.
 | Mention **« BM 8241 UZ saja »** sous les charges mensuelles | Les Rp 62.800.000 fournis ne couvrent que le premier camion. Plutôt qu'inventer un total de flotte, l'app dit ce que le chiffre couvre. |
 | Sélecteur affiché **seulement si plusieurs camions roulent** | Avec une flotte d'un seul véhicule, un sélecteur à une entrée serait du bruit. |
 
+## Une adresse sans moyen de la suivre
+
+Toutes les adresses étaient du texte : pour s'y rendre, le chauffeur devait
+la recopier dans son application de navigation, au volant.
+
+Un composant `NavButtons` ouvre **Maps** ou **Waze** depuis quatre endroits :
+écran du chauffeur, fiches clients, formulaire de commande, et suivi de
+position — ce dernier avec les **coordonnées du boîtier**, plus fiables
+qu'une chaîne de caractères.
+
+La destination proposée au chauffeur **dépend de l'étape** : entrepôt de
+départ avant le chargement, lieu de déchargement en route, adresse du fret
+retour ensuite. Un bouton qui pointe toujours au même endroit ne sert à rien.
+
+Aucun logo de marque n'est reproduit : icône générique et nom écrit, comme
+pour WhatsApp.
+
+**Au passage, une erreur que le build n'a pas vue.** `NavButtons` était
+utilisé dans l'écran de suivi sans y être importé — `npm run build` passait
+sans rien signaler, l'écran aurait planté à l'ouverture. Un contrôle
+automatique vérifie désormais que tout composant de `bits.jsx` employé dans
+un écran y est bien importé.
+
 ## « Pilih status lain » se lisait comme un intertitre
 
 L'action secondaire du chauffeur était un texte centré, gras, en gris —

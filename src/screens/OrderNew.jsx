@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { Btn, Field, Input, Select, Seg, Banner } from '../components/bits.jsx'
+import { Btn, Field, Input, Select, Seg, Banner, NavButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, num, dateShort } from '../lib/format.js'
 import { customers, drivers, trucks, tariffs, NOW } from '../data/demoData.js'
@@ -69,14 +69,16 @@ export default function OrderNew() {
               </Field>
               <div className="card mt-2 flex flex-col gap-1.5 text-[11.5px]"
                    style={{ color: 'var(--color-mut)' }}>
-                <span className="flex items-start gap-1.5">
-                  <Icon n="box" className="w-[13px] h-[13px] mt-0.5 shrink-0" />
-                  <span><b style={{ color: 'var(--color-ink-2)' }}>{t('order.loadAt')}</b> — {cust.loadAddress}</span>
-                </span>
-                <span className="flex items-start gap-1.5">
-                  <Icon n="pin" className="w-[13px] h-[13px] mt-0.5 shrink-0" />
-                  <span><b style={{ color: 'var(--color-ink-2)' }}>{t('order.unloadAt')}</b> — {cust.unloadAddress}</span>
-                </span>
+                {[[t('order.loadAt'), cust.loadAddress, 'box'],
+                  [t('order.unloadAt'), cust.unloadAddress, 'pin']].map(([label, addr, icon]) => (
+                  <span key={label} className="flex items-start gap-1.5">
+                    <Icon n={icon} className="w-[13px] h-[13px] mt-0.5 shrink-0" />
+                    <span className="flex-1 min-w-0">
+                      <b style={{ color: 'var(--color-ink-2)' }}>{label}</b> — {addr}
+                      <span className="block mt-1.5"><NavButtons address={addr} compact /></span>
+                    </span>
+                  </span>
+                ))}
                 <span className="flex items-center gap-1.5">
                   <Icon n="user" className="w-[13px] h-[13px] shrink-0" />
                   {cust.contact} · {cust.phone}

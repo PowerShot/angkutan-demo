@@ -220,3 +220,44 @@ export function SectionTitle({ children, action, onAction }) {
     </div>
   )
 }
+
+/* =========================================================================
+   OUVRIR DANS UNE APPLICATION DE NAVIGATION
+   Une adresse affichée sans moyen de la suivre oblige à la recopier au
+   volant. Ces deux boutons ouvrent l'application installée sur le téléphone.
+   Les coordonnées sont préférées à l'adresse quand elles existent : elles
+   ne dépendent pas de la reconnaissance d'une chaîne de caractères.
+   Aucun logo de marque n'est reproduit — icône générique et nom écrit,
+   même traitement que pour WhatsApp.
+   ========================================================================= */
+export function NavButtons({ address, lat, lon, compact = false }) {
+  const { t } = useT()
+  const hasCoords = lat != null && lon != null
+  const query = hasCoords ? `${lat},${lon}` : address
+  if (!query) return null
+
+  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+  const waze = hasCoords
+    ? `https://waze.com/ul?ll=${lat},${lon}&navigate=yes`
+    : `https://waze.com/ul?q=${encodeURIComponent(query)}&navigate=yes`
+
+  const cls = compact
+    ? 'flex items-center gap-1.5 rounded-[9px] px-2.5 py-1.5 text-[11.5px] font-bold no-underline'
+    : 'btn btn-ghost btn-sm'
+  const style = compact
+    ? { color: 'var(--color-pri)', boxShadow: 'inset 0 0 0 1.5px var(--color-line)' }
+    : undefined
+
+  return (
+    <div className={compact ? 'flex gap-2' : 'grid grid-cols-2 gap-2.5'}>
+      <a href={maps} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+        <Icon n="pin" className={compact ? 'w-[14px] h-[14px]' : 'w-[17px] h-[17px]'} />
+        {t('common.maps')}
+      </a>
+      <a href={waze} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+        <Icon n="nav" className={compact ? 'w-[14px] h-[14px]' : 'w-[17px] h-[17px]'} />
+        {t('common.waze')}
+      </a>
+    </div>
+  )
+}

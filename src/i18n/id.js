@@ -137,7 +137,8 @@ export default {
          job: 'Pekerjaan', driver: 'SOPIR', nationality: 'Kewarganegaraan',
          wni: 'WNI', validUntil: 'Berlaku Hingga', lifetime: 'SEUMUR HIDUP' },
 
-  common: { change: 'Ganti', back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
+  common: { change: 'Ganti', maps: 'Maps', waze: 'Waze',
+            navigate: 'Navigasi', destination: 'Tujuan', back: 'Kembali', close: 'Tutup', all: 'Semua', search: 'Cari',
             today: 'Hari ini', yesterday: 'Kemarin', more: 'Selengkapnya',
             seeAll: 'Lihat semua', open: 'Lihat', wib: 'WIB', rp: 'Rp',
             km: 'km', l: 'L', yes: 'Ya', no: 'Tidak', of: 'dari' },

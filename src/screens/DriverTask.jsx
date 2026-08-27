@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useT } from '../i18n/index.jsx'
 import { useStore, useAct } from '../store/index.jsx'
 import { TopBar, Screen, Rise } from '../components/Chrome.jsx'
-import { StatusBadge, StatusPill, Btn, Sheet, Pill, Row } from '../components/bits.jsx'
+import { StatusBadge, StatusPill, Btn, Sheet, Pill, Row, NavButtons } from '../components/bits.jsx'
 import Icon from '../components/Icon.jsx'
 import { rp, timeWib } from '../lib/format.js'
 import { metaOf } from '../lib/status.js'
@@ -34,6 +34,22 @@ export default function DriverTask() {
   const next = TRIP_STATUSES[idx + 1]
   const spent = s.expenseTotal(trip.id)
   const tone = metaOf(trip.status).tone
+
+  /* La destination dépend de l'étape : avant le chargement c'est l'entrepôt
+     de départ, en route c'est le lieu de déchargement, au retour c'est
+     l'adresse du fret retour. Un bouton qui pointe toujours au même endroit
+     ne sert à rien. */
+  const dest = (() => {
+    const c = s.customer(trip.outbound.customerId)
+    if (['menuju_muat', 'proses_muat'].includes(trip.status))
+      return { label: t('order.loadAt'), addr: c.loadAddress }
+    if (['berangkat', 'tiba_bongkar'].includes(trip.status))
+      return { label: t('order.unloadAt'), addr: c.unloadAddress }
+    const back = trip.backhaul ? s.customer(trip.backhaul.customerId) : null
+    return back
+      ? { label: t('order.unloadAt'), addr: back.unloadAddress }
+      : { label: t('order.loadAt'), addr: c.loadAddress }
+  })()
 
   const apply = (status) => {
     act('setStatus', { tripId: trip.id, status, at: NOW, by: trip.driverId })
@@ -93,7 +109,14 @@ export default function DriverTask() {
               </span>
             </div>
             <div className="text-[13.5px] font-bold mt-2.5 leading-snug">{out.name}</div>
-            <div className="sub mt-0.5">{out.unloadAddress}</div>
+
+            {/* L'adresse de destination et de quoi la suivre sans la recopier. */}
+            <div className="mt-3 pt-3 border-t" style={{ borderColor: 'var(--color-line-2)' }}>
+              <div className="k mb-1">{t('common.destination')} · {dest.label}</div>
+              <div className="text-[13px] font-semibold leading-snug">{dest.addr}</div>
+              <div className="mt-2.5"><NavButtons address={dest.addr} /></div>
+            </div>
+
             <div className="mt-3 pt-2.5 border-t flex items-center gap-2 text-[11.5px]"
                  style={{ borderColor: 'var(--color-line-2)', color: 'var(--color-mut)' }}>
               <Icon n="doc" className="w-[13px] h-[13px]" />

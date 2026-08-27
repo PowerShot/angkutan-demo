@@ -38,6 +38,11 @@ des défauts qu'il a fallu corriger.**
 - **Aucune icône sans son libellé**, aucun menu hamburger, aucune action
   derrière un balayage ou un appui long. Confirmation avant tout changement
   d'état.
+- **Une adresse affichée est suivie de quoi la suivre.** Boutons Maps et
+  Waze (`NavButtons`), sinon on oblige à recopier une adresse au volant. Les
+  coordonnées sont préférées à l'adresse quand elles existent. La destination
+  proposée au chauffeur dépend de l'étape du trajet : entrepôt de départ,
+  lieu de déchargement, puis adresse du fret retour.
 - **Ce qui est cliquable doit se voir cliquable.** Fond plein, contour, ou
   chevron — jamais du texte centré en gris, qui se lit comme un intertitre.
   L'action secondaire prend un contour et une icône, plus petite que
@@ -111,6 +116,9 @@ des défauts qu'il a fallu corriger.**
 - **Vérifier une suppression sur `git ls-files` ET sur le disque.** 91 tuiles
   annoncées supprimées sont restées suivies et déployées pendant plusieurs
   versions.
+- **`npm run build` ne prouve pas qu'un composant est importé.** Un JSX
+  référençant un identifiant absent construit sans erreur et casse à
+  l'exécution. Toujours ouvrir l'écran modifié dans le navigateur.
 - Commandes utiles : `npm run build` (doit passer sans erreur),
   `npx oxlint src/` (zéro variable inutilisée), et la parité i18n.
 
